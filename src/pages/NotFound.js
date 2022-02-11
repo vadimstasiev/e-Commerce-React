@@ -10,7 +10,7 @@ const NotFound = () => {
         <SvgBackground>
             <div className="grid  place-items-center pt-40">
                     <Result
-                        // style={{horizontal}}
+                        className='text-slate-900 dark:text-slate-400'
                         status="404"
                         title="404"
                         subTitle="Sorry, the page you visited does not exist."
