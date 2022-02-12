@@ -5,6 +5,7 @@ import Background from './Components/Background';
 
 import Home from './pages/Home';
 import SignIn from './pages/Auth/SignIn';
+import SignUp from './pages/Auth/SignUp';
 import NotFound from './pages/NotFound';
 
 
@@ -41,6 +42,7 @@ const App = () => {
               <Routes>
                 <Route exact path="/" element={<Home/>}/>
                 <Route exact path="/SignIn" element={<SignIn/>}/>
+                <Route exact path="/SignUp" element={<SignUp/>}/>
                 {/* <Route exact path="/recovery-password" element={<RecoveryPassword/>}/> */}
                 <Route path="*" element={<NotFound/>}/>
               </Routes>

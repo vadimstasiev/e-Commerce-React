@@ -11,6 +11,7 @@ const SignIn = (props) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const [authError, setAuthError] = useState("");
 
@@ -67,17 +68,25 @@ const SignIn = (props) => {
                     Username
                 </label>
                 <input autoComplete="email" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
-                id="username" type="text" placeholder="Email"
+                id="email" type="text" placeholder="Email"
                 onChange={(e)=>setEmail(e.target.value)}
                 />
                 </div>
-                <div className="mb-6">
+                <div className="mb-1">
                 <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
                     Password
                 </label>
-                <input autoComplete="current-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                <input autoComplete="new-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 id="password" type="password" placeholder="******************"
                 onChange={(e)=>setPassword(e.target.value)}/>
+                </div>
+                <div className="mb-6">
+                <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                    Confirm Password
+                </label>
+                <input autoComplete="new-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                id="password" type="password" placeholder={ password.length===0?"******************":"*".repeat(password.length)}
+                onChange={(e)=>setConfirmPassword(e.target.value)}/>
                 {authError ? 
                     <p className="text-red-500 text-xs italic">{authError}.</p>
                 : null}
@@ -85,11 +94,11 @@ const SignIn = (props) => {
                 <div className="flex items-center justify-between">
                 <button className="bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
                 onClick={handleSubmit}>
-                    Sign In
+                    Sign Up
                 </button>
                 <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
                     <div className="hover:text-blue-800 cursor-pointer">Forgot Password?</div>
-                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignUp')}>Sign Up</div>
+                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignIn')}>Sign In</div>
                 </div>
                 </div>
             </form>
