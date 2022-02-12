@@ -17,20 +17,22 @@ const SignIn = (props) => {
 
     const firebase = useFirebase()
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.log({ email, password })
-        firebase.login({ email, password })
+    const handleSubmit = () => {
+      if(password===confirmPassword){
+        firebase.createUser({ email, password })
         .then(creds => {
-            console.log(creds)
-            setAuthError("")
+          console.log("success")
+          setAuthError("")
         })
         .catch(error => {
-            let errorMessageFormated = error.code.replace('auth/','').replace(/-/g, " ")
-            errorMessageFormated = errorMessageFormated.charAt(0).toUpperCase() + errorMessageFormated.slice(1)
-            setAuthError(errorMessageFormated)
+          let errorMessageFormated = error.code.replace('auth/','').replace(/-/g, " ")
+          errorMessageFormated = errorMessageFormated.charAt(0).toUpperCase() + errorMessageFormated.slice(1) + "."
+          setAuthError(errorMessageFormated)
         })
-    };
+      } else {
+        setAuthError("Passwords must match.")
+      }
+    }
 
 
 
@@ -88,7 +90,7 @@ const SignIn = (props) => {
                 id="password" type="password" placeholder={ password.length===0?"******************":"*".repeat(password.length)}
                 onChange={(e)=>setConfirmPassword(e.target.value)}/>
                 {authError ? 
-                    <p className="text-red-500 text-xs italic">{authError}.</p>
+                    <p className="text-red-500 text-xs italic">{authError}</p>
                 : null}
                 </div>
                 <div className="flex items-center justify-between">
@@ -98,7 +100,7 @@ const SignIn = (props) => {
                 </button>
                 <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
                     <div className="hover:text-blue-800 cursor-pointer">Forgot Password?</div>
-                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignIn')}>Sign In</div>
+                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignIn')}>Already have an account? Sign In!</div>
                 </div>
                 </div>
             </form>

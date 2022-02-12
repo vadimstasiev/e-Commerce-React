@@ -26,7 +26,7 @@ const SignIn = (props) => {
         })
         .catch(error => {
             let errorMessageFormated = error.code.replace('auth/','').replace(/-/g, " ")
-            errorMessageFormated = errorMessageFormated.charAt(0).toUpperCase() + errorMessageFormated.slice(1)
+            errorMessageFormated = errorMessageFormated.charAt(0).toUpperCase() + errorMessageFormated.slice(1) + "."
             setAuthError(errorMessageFormated)
         })
     };
@@ -79,7 +79,7 @@ const SignIn = (props) => {
                 id="password" type="password" placeholder="******************"
                 onChange={(e)=>setPassword(e.target.value)}/>
                 {authError ? 
-                    <p className="text-red-500 text-xs italic">{authError}.</p>
+                    <p className="text-red-500 text-xs italic">{authError}</p>
                 : null}
                 </div>
                 <div className="flex items-center justify-between">
@@ -89,7 +89,7 @@ const SignIn = (props) => {
                 </button>
                 <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
                     <div className="hover:text-blue-800 cursor-pointer">Forgot Password?</div>
-                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignUp')}>Sign Up</div>
+                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignUp')}>Don't have an account? Sign Up!</div>
                 </div>
                 </div>
             </form>
