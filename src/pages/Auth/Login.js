@@ -46,8 +46,6 @@ const Login = (props) => {
     return (
       <SvgBackground>
         <Toggle />
-        <div className="login-form">
-          <h3 className="h3 mb-3 font-weight-normal"> Sign in</h3>
           {/* <div className="social-login">
             <button
               className="ml-3 btn btn-outline-danger"
@@ -60,42 +58,39 @@ const Login = (props) => {
             </button>
           </div>
           <p> OR </p> */}
-          <form className="form-signin" onSubmit={handleSubmit}>
-            <input
-              type="email"
-              id="inputEmail"
-              className="form-control"
-              placeholder="Email address"
-              required=""
-              autoFocus=""
-              onChange={(e)=>setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              id="inputPassword"
-              className="form-control"
-              placeholder="Password"
-              required=""
-              onChange={(e)=>setPassword(e.target.value)}
-            />
 
-            <button className="btn btn-outline-success btn-block" type="submit">
-              <i className="fas fa-sign-in-alt" /> Sign in
-            </button>
-            <p className="mt-2">Forgot password?</p>
-            <hr />
-            <p>
-              New user?
-              <Link to="/register">
-                <i className="fas fa-user-plus" /> Sign up
-              </Link>
-            </p>
-          </form>
-          {authError ? (
-            <div className="p-3 mb-2 bg-danger ">
-              <span>{authError}</span>
-            </div>
-          ) : null}
+        <div className="grid place-items-center pt-40">
+            <form className="bg-white dark:bg-zinc-900 shadow-md rounded px-8 pt-6 pb-8 mb-4 border-zinc-200 border-2">
+                <div className="mb-4">
+                <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                    Username
+                </label>
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username" type="text" placeholder="Username"
+                onChange={(e)=>setEmail(e.target.value)}
+                />
+                </div>
+                <div className="mb-6">
+                <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                    Password
+                </label>
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                id="password" type="password" placeholder="******************"
+                onChange={(e)=>setPassword(e.target.value)}/>
+                {authError ? 
+                    <p className="text-red-500 text-xs italic">{authError}.</p>
+                : null}
+                </div>
+                <div className="flex items-center justify-between">
+                <button className="bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+                onClick={handleSubmit}>
+                    Sign In
+                </button>
+                <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 ml-20" href="#">
+                    Forgot Password?
+                </a>
+                </div>
+            </form>
         </div>
       </SvgBackground>
     );
