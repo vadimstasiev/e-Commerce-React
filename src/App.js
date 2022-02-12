@@ -11,56 +11,20 @@ import NotFound from './pages/NotFound';
 // Redux
 
 import { Provider } from 'react-redux'
-import firebase from 'firebase/app'
+import {initializeApp} from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/firestore' // <- needed if using firestore
-import { createStore, combineReducers, compose } from 'redux'
-import {
-  ReactReduxFirebaseProvider,
-  firebaseReducer
-} from 'react-redux-firebase'
-import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
+import 'firebase/database'
+import 'firebase/firestore' // make sure you add this for firestore
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+import { createFirestoreInstance } from 'redux-firestore'
 
-const fbConfig = {
-  apiKey: "AIzaSyAvn1YB-cFk1MYc7HNvFv82lRKsNnA-m7U",
-  authDomain: "mobile-app-b6ebc.firebaseapp.com",
-  databaseURL: "https://mobile-app-b6ebc.firebaseio.com",
-  projectId: "mobile-app-b6ebc",
-  storageBucket: "mobile-app-b6ebc.appspot.com",
-  messagingSenderId: "432394255342",
-  appId: "1:432394255342:web:db191516f1180537536cff",
-  measurementId: "G-XVJRMFQZ0D"
-};
+import configureStore from './store'
+import { firebase as fbConfig, rrfConfig } from './config'
 
-// react-redux-firebase config
-const rrfConfig = {
-  userProfile: 'users',
-  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
-  // enableClaims: true // Get custom claims along with the profile
-}
-
-// Initialize firebase instance
-firebase.initializeApp(fbConfig)
-
-// Initialize other services on firebase instance
-firebase.firestore() // <- needed if using firestore
-
-// Add firebase to reducers
-const rootReducer = combineReducers({
-  firebase: firebaseReducer,
-  firestore: firestoreReducer // <- needed if using firestore
-})
-
-// Create store with reducers and initial state
-const initialState = {}
-const store = createStore(rootReducer, initialState)
-
-const rrfProps = {
-  firebase,
-  config: rrfConfig,
-  dispatch: store.dispatch,
-  createFirestoreInstance // <- needed if using firestore
-}
+const initialState = window && window.__INITIAL_STATE__ // set initial state here
+const store = configureStore(initialState)
+// Initialize Firebase instance
+const firebaseApp = initializeApp(fbConfig)
 
 const App = () => {
   return (
@@ -70,7 +34,12 @@ const App = () => {
           <Toggle />
         </div>
         <Provider store={store}>
-          <ReactReduxFirebaseProvider {...rrfProps}>
+          <ReactReduxFirebaseProvider 
+            firebase={firebaseApp}
+            config={rrfConfig}
+            dispatch={store.dispatch}
+            createFirestoreInstance={createFirestoreInstance}
+          >
             <Router>
               <Routes>
                 <Route exact path="/" element={<Home/>}/>

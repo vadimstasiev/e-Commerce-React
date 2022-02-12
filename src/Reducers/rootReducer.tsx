@@ -1,3 +1,4 @@
+// example
 import { combineReducers } from 'redux'
 import { firebaseReducer, FirebaseReducer } from 'react-redux-firebase'
 
