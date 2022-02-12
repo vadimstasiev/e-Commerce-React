@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import "./Login.css";
 import { useFirebase } from 'react-redux-firebase'
 import { useNavigate } from "react-router-dom";
 
@@ -90,7 +89,7 @@ const Login = (props) => {
                 </button>
                 <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
                     <div className="hover:text-blue-800 cursor-pointer">Forgot Password?</div>
-                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/Register')}>Sign Up</div>
+                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignUp')}>Sign Up</div>
                 </div>
                 </div>
             </form>

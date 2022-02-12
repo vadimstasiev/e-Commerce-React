@@ -1,5 +1,5 @@
 import React from 'react'
-import { Result, Button, Row, Col } from 'antd';
+import { Result } from 'antd';
 import { Link } from 'react-router-dom';
 
 import SvgBackground from '../Components/SvgBackground';
@@ -17,8 +17,17 @@ const NotFound = () => {
                         status="404"
                         title="404"
                         subTitle="Sorry, the page you visited does not exist."
-                        extra={<Button type="primary"><Link to='/'>Back Home</Link></Button>}
+                        // extra={}
                     />
+                    <Link to='/'>
+                            <button type="button" className="mt-5 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 
+                                bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2
+                                focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 
+                                dark:hover:text-white dark:hover:bg-gray-700"
+                            >
+                               {"<= Back Home"}
+                            </button>
+                    </Link>
             </div>
         </SvgBackground>
     )
