@@ -1,13 +1,15 @@
 import React, {useState} from "react";
 import "./Login.css";
 import { useFirebase } from 'react-redux-firebase'
-import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import SvgBackground from "../../Components/SvgBackground";
 
 import Toggle from "../../Components/ThemeToggle";
 
 const Login = (props) => {
+    const navigate = useNavigate()
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -65,7 +67,7 @@ const Login = (props) => {
                 <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
                     Username
                 </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
                 id="username" type="text" placeholder="Username"
                 onChange={(e)=>setEmail(e.target.value)}
                 />
@@ -74,7 +76,7 @@ const Login = (props) => {
                 <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
                     Password
                 </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 id="password" type="password" placeholder="******************"
                 onChange={(e)=>setPassword(e.target.value)}/>
                 {authError ? 
@@ -86,9 +88,10 @@ const Login = (props) => {
                 onClick={handleSubmit}>
                     Sign In
                 </button>
-                <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 ml-20" href="#">
-                    Forgot Password?
-                </a>
+                <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
+                    <div className="hover:text-blue-800 cursor-pointer">Forgot Password?</div>
+                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/Register')}>Sign Up</div>
+                </div>
                 </div>
             </form>
         </div>
