@@ -4,7 +4,7 @@ import {ThemeProvider} from './Components/ThemeContext';
 import Background from './Components/Background';
 
 import Home from './pages/Home';
-import Login from './pages/Auth/Login';
+import SignIn from './pages/Auth/SignIn';
 import NotFound from './pages/NotFound';
 
 
@@ -40,7 +40,7 @@ const App = () => {
             <Router>
               <Routes>
                 <Route exact path="/" element={<Home/>}/>
-                <Route exact path="/SignIn" element={<Login/>}/>
+                <Route exact path="/SignIn" element={<SignIn/>}/>
                 {/* <Route exact path="/recovery-password" element={<RecoveryPassword/>}/> */}
                 <Route path="*" element={<NotFound/>}/>
               </Routes>

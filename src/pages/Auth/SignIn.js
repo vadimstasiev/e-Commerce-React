@@ -6,7 +6,7 @@ import SvgBackground from "../../Components/SvgBackground";
 
 import Toggle from "../../Components/ThemeToggle";
 
-const Login = (props) => {
+const SignIn = (props) => {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState("");
@@ -99,4 +99,4 @@ const Login = (props) => {
   }
 
 
-export default (Login);
+export default (SignIn);
