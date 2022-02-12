@@ -5,9 +5,9 @@ const Background = ( { children } ) =>
 {
     return (
        
-        <body className="bg-white dark:bg-gray-800 transition-all">
+        <div className="bg-white dark:bg-gray-800 transition-all">
             {children}
-        </body>
+        </div>
     )
 }
 
