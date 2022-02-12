@@ -8,23 +8,29 @@ import SvgBackground from "../../Components/SvgBackground";
 import Toggle from "../../Components/ThemeToggle";
 
 const Login = (props) => {
-    const [state, setState] = useState({
-        submitted: false
-    });
-    const firebase = useFirebase()
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleChange = e => {
-        setState({
-            [e.target.id]: e.target.value
-        });
-    };
+    const [authError, setAuthError] = useState("");
+
+    const firebase = useFirebase()
 
     const handleSubmit = e => {
         e.preventDefault();
-        setState({ submitted: true });
-        const { inputEmail, inputPassword } = state;
-        firebase.login({ email: inputEmail, password: inputPassword });
+        console.log({ email, password })
+        firebase.login({ email, password })
+        .then(creds => {
+            console.log(creds)
+            setAuthError("")
+        })
+        .catch(error => {
+            let errorMessageFormated = error.code.replace('auth/','').replace(/-/g, " ")
+            errorMessageFormated = errorMessageFormated.charAt(0).toUpperCase() + errorMessageFormated.slice(1)
+            setAuthError(errorMessageFormated)
+        })
     };
+
+
 
     // const logInWithGoogle = () => {
     //     firebase.login({
@@ -33,7 +39,7 @@ const Login = (props) => {
     //     })
     // };
 
-    const { auth, authError } = props;
+
     let from = { pathname: "/" }
 
     // if (auth.uid) return <Navigate to={from} />;
@@ -62,7 +68,7 @@ const Login = (props) => {
               placeholder="Email address"
               required=""
               autoFocus=""
-              onChange={handleChange}
+              onChange={(e)=>setEmail(e.target.value)}
             />
             <input
               type="password"
@@ -70,7 +76,7 @@ const Login = (props) => {
               className="form-control"
               placeholder="Password"
               required=""
-              onChange={handleChange}
+              onChange={(e)=>setPassword(e.target.value)}
             />
 
             <button className="btn btn-outline-success btn-block" type="submit">
@@ -86,7 +92,7 @@ const Login = (props) => {
             </p>
           </form>
           {authError ? (
-            <div class="p-3 mb-2 bg-danger text-white">
+            <div className="p-3 mb-2 bg-danger ">
               <span>{authError}</span>
             </div>
           ) : null}
