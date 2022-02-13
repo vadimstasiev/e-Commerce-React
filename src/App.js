@@ -12,9 +12,9 @@ const App = () => {
     <ThemeProvider>
       <Background>
         {loadingUser?
-        <Loading/>
+          <Loading/>
         :
-        <AppRouter/>
+          <AppRouter/>
         }
       </Background>
     </ThemeProvider>

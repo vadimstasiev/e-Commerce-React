@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import SvgBackground from "../../Components/SvgBackground";
 
-import Toggle from "../../Components/ThemeToggle";
+import {FixedToggle} from "../../Components/ThemeToggle";
 
 import { auth, signInWithGoogle } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -41,7 +41,7 @@ const SignIn = (props) => {
 
     return (
       <SvgBackground>
-        <Toggle />
+        <FixedToggle />
         <div className="grid place-items-center pt-40">
             <form className="bg-white dark:bg-zinc-900 shadow-md rounded px-8 pt-6 pb-8 mb-4 border-zinc-200 border-2">
                 <div className="mb-4">

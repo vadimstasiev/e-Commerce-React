@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import SvgBackground from "../../Components/SvgBackground";
 
-import Toggle from "../../Components/ThemeToggle";
+import {FixedToggle} from "../../Components/ThemeToggle";
 
 const SignIn = (props) => {
     const navigate = useNavigate()
@@ -39,7 +39,7 @@ const SignIn = (props) => {
 
     return (
       <SvgBackground>
-        <Toggle />
+        <FixedToggle />
         {submitted?
           <div className="grid place-items-center pt-40">
             <Result

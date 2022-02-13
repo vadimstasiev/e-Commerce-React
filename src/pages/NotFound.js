@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 import SvgBackground from '../Components/SvgBackground';
 
-import Toggle from '../Components/ThemeToggle';
+import {FixedToggle} from '../Components/ThemeToggle';
 
 
 const NotFound = () => {
     return (
         <SvgBackground>
-            <Toggle/>
+            <FixedToggle/>
             <div className="grid  place-items-center pt-40">
                     <Result
                         className='text-slate-900 dark:text-slate-400'
