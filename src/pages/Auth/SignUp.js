@@ -1,29 +1,29 @@
-import React, {useState} from "react";
-import { useFirebase } from 'react-redux-firebase'
+import React, {useState, useEffect} from "react";
+import { registerWithEmailAndPassword } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 
 import SvgBackground from "../../Components/SvgBackground";
 
 import Toggle from "../../Components/ThemeToggle";
 
+import { auth } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 const SignUp = (props) => {
     const navigate = useNavigate()
+    const [user, loading, error] = useAuthState(auth);
 
+
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [authError, setAuthError] = useState("");
 
-    const firebase = useFirebase()
-
     const handleSubmit = () => {
       if(password===confirmPassword){
-        firebase.createUser({ email, password })
-        .then(creds => {
-          console.log("success")
-          setAuthError("")
-        })
+        registerWithEmailAndPassword(name, email, password)
         .catch(error => {
           let errorMessageFormated = error.code.replace('auth/','').replace(/-/g, " ")
           errorMessageFormated = errorMessageFormated.charAt(0).toUpperCase() + errorMessageFormated.slice(1) + "."
@@ -43,6 +43,9 @@ const SignUp = (props) => {
     //     })
     // };
 
+    useEffect(() => {
+      if (user) navigate("/home");
+    }, [user, loading]);
 
     let from = { pathname: "/" }
 
@@ -67,6 +70,15 @@ const SignUp = (props) => {
             <form className="bg-white dark:bg-zinc-900 shadow-md rounded px-8 pt-6 pb-8 mb-4 border-zinc-200 border-2">
                 <div className="mb-4">
                 <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                    Name
+                </label>
+                <input autoComplete="name" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
+                id="name" type="text" placeholder="Email"
+                onChange={(e)=>setName(e.target.value)}
+                />
+                </div>
+                <div className="mb-4">
+                <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
                     Email
                 </label>
                 <input autoComplete="email" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
@@ -87,7 +99,7 @@ const SignUp = (props) => {
                     Confirm Password
                 </label>
                 <input autoComplete="new-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password" type="password" placeholder={ password.length===0?"******************":"*".repeat(password.length)}
+                id="confirm_password" type="password" placeholder={ password.length===0?"******************":"*".repeat(password.length)}
                 onChange={(e)=>setConfirmPassword(e.target.value)}/>
                 {authError ? 
                     <p className="text-red-500 text-xs italic">{authError}</p>

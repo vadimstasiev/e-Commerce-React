@@ -8,9 +8,7 @@ import ResetPassword from './pages/Auth/ResetPassword';
 import NotFound from './pages/NotFound';
 
 
-
 const AppRouter = () => {
-
   return <Router>
     <Routes>
       {/* This is how to create Private Route */}
@@ -21,7 +19,6 @@ const AppRouter = () => {
       <Route exact path="/SignIn" element={<SignIn/>}/>
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
-      {/* <Route exact path="/recovery-password" element={<RecoveryPassword/>}/> */}
       <Route path="*" element={<NotFound/>}/>
     </Routes>
 </Router>

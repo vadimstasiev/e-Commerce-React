@@ -8104,6 +8104,11 @@ react-error-overlay@^6.0.10:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.10.tgz#0fe26db4fa85d9dbb8624729580e90e7159a59a6"
   integrity sha512-mKR90fX7Pm5seCOfz8q9F+66VCc1PGsWSBxKbITjfKVQHMNF2zudxHnMdJiB1fRCb+XsbQV9sO9DCkgsMQgBIA==
 
+react-firebase-hooks@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-firebase-hooks/-/react-firebase-hooks-5.0.2.tgz#f1f6c41052226d4d1d7323667dfae1dfa5cc2502"
+  integrity sha512-9Do3z5nvYxIMWh+cuHGL7Pzwh+C1PlGWZPyS1Gju6136rjuYbt6l9PR6+SkEWHxTKbRJEEY55sKtp+ZAWXajBQ==
+
 react-icons@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.3.1.tgz#2fa92aebbbc71f43d2db2ed1aed07361124e91ca"

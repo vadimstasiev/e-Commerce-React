@@ -1,25 +1,29 @@
-import React, {useState} from "react";
-import { useFirebase } from 'react-redux-firebase'
+import React, {useState, useEffect} from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import SvgBackground from "../../Components/SvgBackground";
 
 import Toggle from "../../Components/ThemeToggle";
 
+import { auth, signInWithGoogle } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 const SignIn = (props) => {
     const navigate = useNavigate()
+    const [user, loading, error] = useAuthState(auth);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [authError, setAuthError] = useState("");
+    
 
-    const firebase = useFirebase()
 
     const handleSubmit = e => {
         e.preventDefault();
         console.log({ email, password })
-        firebase.login({ email, password })
+        signInWithEmailAndPassword(email, password)
         .then(creds => {
             console.log(creds)
             setAuthError("")
@@ -32,14 +36,9 @@ const SignIn = (props) => {
     };
 
 
-
-    // const logInWithGoogle = () => {
-    //     firebase.login({
-    //         provider: 'google',
-    //         type: 'redirect'
-    //     })
-    // };
-
+    useEffect(() => {
+      if (user) navigate("/home");
+    }, [user, loading]);
 
     let from = { pathname: "/" }
 
