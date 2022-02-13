@@ -13,10 +13,11 @@ const AppRouter = () => {
 
   return <Router>
     <Routes>
-      <Route exact path='/' element={<PrivateRoute/>}>
-        {/* Private Routes */}
-        <Route exact path='/' element={<Home/>}/>
+      {/* This is how to create Private Route */}
+      <Route exact path='/test' element={<PrivateRoute/>}>
+        <Route exact path='/test' element={<Home/>}/>
       </Route>
+      <Route exact path='/' element={<Home/>}/>
       <Route exact path="/SignIn" element={<SignIn/>}/>
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
