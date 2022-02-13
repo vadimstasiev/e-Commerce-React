@@ -1,4 +1,4 @@
-import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import AppRouter from './Router';
 import {ThemeProvider} from './Components/ThemeContext';
 import Background from './Components/Background';
 
@@ -21,11 +21,15 @@ import { createFirestoreInstance } from 'redux-firestore'
 
 import configureStore from './store'
 import { firebase as fbConfig, rrfConfig } from './config'
+import { useSelector } from 'react-redux'
+import { isLoaded, isEmpty } from 'react-redux-firebase'
+
 
 const initialState = window && window.__INITIAL_STATE__ // set initial state here
 const store = configureStore(initialState)
 // Initialize Firebase instance
 const firebaseApp = firebase.initializeApp(fbConfig)
+
 
 const App = () => {
   return (
@@ -38,16 +42,7 @@ const App = () => {
             dispatch={store.dispatch}
             createFirestoreInstance={createFirestoreInstance}
           >
-            <Router>
-              <Routes>
-                <Route exact path="/" element={<Home/>}/>
-                <Route exact path="/SignIn" element={<SignIn/>}/>
-                <Route exact path="/SignUp" element={<SignUp/>}/>
-                <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
-                {/* <Route exact path="/recovery-password" element={<RecoveryPassword/>}/> */}
-                <Route path="*" element={<NotFound/>}/>
-              </Routes>
-            </Router>
+            <AppRouter/>
           </ReactReduxFirebaseProvider>
         </Provider>
       </Background>
