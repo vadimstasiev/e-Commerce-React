@@ -2,11 +2,6 @@ import AppRouter from './Router';
 import {ThemeProvider} from './Components/ThemeContext';
 import Background from './Components/Background';
 
-import Home from './pages/Home';
-import SignIn from './pages/Auth/SignIn';
-import SignUp from './pages/Auth/SignUp';
-import ResetPassword from './pages/Auth/ResetPassword';
-import NotFound from './pages/NotFound';
 
 
 // Redux
@@ -21,8 +16,6 @@ import { createFirestoreInstance } from 'redux-firestore'
 
 import configureStore from './store'
 import { firebase as fbConfig, rrfConfig } from './config'
-import { useSelector } from 'react-redux'
-import { isLoaded, isEmpty } from 'react-redux-firebase'
 
 
 const initialState = window && window.__INITIAL_STATE__ // set initial state here
