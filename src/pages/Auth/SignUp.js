@@ -6,7 +6,7 @@ import SvgBackground from "../../Components/SvgBackground";
 
 import Toggle from "../../Components/ThemeToggle";
 
-const SignIn = (props) => {
+const SignUp = (props) => {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState("");
@@ -67,7 +67,7 @@ const SignIn = (props) => {
             <form className="bg-white dark:bg-zinc-900 shadow-md rounded px-8 pt-6 pb-8 mb-4 border-zinc-200 border-2">
                 <div className="mb-4">
                 <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
-                    Username
+                    Email
                 </label>
                 <input autoComplete="email" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
                 id="email" type="text" placeholder="Email"
@@ -99,7 +99,7 @@ const SignIn = (props) => {
                     Sign Up
                 </button>
                 <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
-                    <div className="hover:text-blue-800 cursor-pointer">Forgot Password?</div>
+                <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/ResetPassword')}>Forgot Password?</div>
                     <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignIn')}>Already have an account? Sign In!</div>
                 </div>
                 </div>
@@ -110,4 +110,4 @@ const SignIn = (props) => {
   }
 
 
-export default (SignIn);
+export default (SignUp);

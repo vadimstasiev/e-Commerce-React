@@ -25,7 +25,7 @@ const NotFound = () => {
                                 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 
                                 dark:hover:text-white dark:hover:bg-gray-700"
                             >
-                               {"<= Back Home"}
+                               {"Back Home"}
                             </button>
                     </Link>
             </div>
