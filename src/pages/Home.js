@@ -105,7 +105,7 @@ const Home = () => {
               </nav>
               <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                 {dummyList.map((product) => (
-                  <a key={product.id} href={product.href}>
+                  <a key={product.id} href={product.href} className="m-5">
                     <img className="hover:grow hover:shadow-lg" src={product.imageSrc} />
                     <div className="pt-3 flex items-center justify-between">
                       <p className="text-gray-800 dark:text-gray-100 dark:hover:text-white">{product.name}</p>
