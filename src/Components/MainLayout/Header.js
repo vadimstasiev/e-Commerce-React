@@ -14,11 +14,14 @@ const Header = () => {
     return (
       <header>
         <nav id="header" className="w-full z-30 top-0 py-2">
-              <div className={isActive ? activeSide:hiddenSide}>
-                <div className="w-screen h-screen flex transform fixed transition-all duration-1000 md:hidden">
-                        
-                </div>
-              </div>
+          <div className="flex transform fixed transition-all duration-1000 md:hidden">
+            <div className={isActive ? activeSide:hiddenSide}>
+              <ul className="md:flex text-base text-gray-700 pt-4 pt-14">
+                <li><a className="inline-block no-underline font-medium dark:text-gray-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">FAQ</a></li>
+                <li><a className="inline-block no-underline font-medium dark:text-gray-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">About</a></li>
+              </ul>
+            </div>
+          </div>
           <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">     
             <div className="md:hidden">       
               <div className={isActive ? normalButton : activeButton}
