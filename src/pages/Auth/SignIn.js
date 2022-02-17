@@ -8,6 +8,7 @@ import {FixedToggle} from "../../Components/ThemeToggle";
 
 import { auth, signInWithGoogle } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Background from "../../Components/Background";
 
 const SignIn = (props) => {
     const {from} = props
@@ -40,6 +41,7 @@ const SignIn = (props) => {
     }, [user, loading]);
 
     return (
+      <Background>
       <SvgBackground>
         <FixedToggle />
         <div className="grid place-items-center pt-40">
@@ -83,6 +85,7 @@ const SignIn = (props) => {
             </form>
         </div>
       </SvgBackground>
+      </Background>
     );
   }
 

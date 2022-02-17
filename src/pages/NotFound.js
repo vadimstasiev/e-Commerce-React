@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 import SvgBackground from '../Components/SvgBackground';
 
 import {FixedToggle} from '../Components/ThemeToggle';
+import Background from '../Components/Background';
 
 
 const NotFound = () => {
     return (
+        <Background>
         <SvgBackground>
             <FixedToggle/>
             <div className="grid  place-items-center pt-40">
@@ -30,6 +32,7 @@ const NotFound = () => {
                     </Link>
             </div>
         </SvgBackground>
+        </Background>
     )
 }
 

@@ -1,6 +1,5 @@
 import AppRouter from './Router';
 import {ThemeProvider} from './Components/ThemeContext';
-import Background from './Components/Background';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from './firebase';
 import Loading from './pages/Auth/Loading';
@@ -10,13 +9,11 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      {/* <Background> */}
         {loadingUser?
           <Loading/>
         :
           <AppRouter/>
         }
-      {/* </Background> */}
     </ThemeProvider>
   )
 }

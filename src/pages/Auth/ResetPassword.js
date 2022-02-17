@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import SvgBackground from "../../Components/SvgBackground";
 
 import {FixedToggle} from "../../Components/ThemeToggle";
+import Background from "../../Components/Background";
 
 const SignIn = (props) => {
     const navigate = useNavigate()
@@ -38,6 +39,7 @@ const SignIn = (props) => {
     let from = { pathname: "/" }
 
     return (
+      <Background>
       <SvgBackground>
         <FixedToggle />
         {submitted?
@@ -90,6 +92,7 @@ const SignIn = (props) => {
           </div>
         }
       </SvgBackground>
+      </Background>
     );
   }
 
