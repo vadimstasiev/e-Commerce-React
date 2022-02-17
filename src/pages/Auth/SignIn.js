@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { RollbackOutlined } from '@ant-design/icons';
+
 
 import SvgBackground from "../../Components/SvgBackground";
 
@@ -83,6 +85,12 @@ const SignIn = (props) => {
                   </div>
                 </div>
             </form>
+            <div className="flex">
+              <RollbackOutlined className="text-gray-700 dark:text-gray-100 text-lg"/>
+              <div className="text-gray-700 dark:text-gray-100 text-lg font-bold pt-0.5 pl-2 cursor-pointer" onClick={() => navigate('/')}>
+                  Home
+              </div>
+            </div>
         </div>
       </SvgBackground>
       </Background>

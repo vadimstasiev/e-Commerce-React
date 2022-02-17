@@ -6,7 +6,7 @@ import SignIn from './pages/Auth/SignIn';
 import SignUp from './pages/Auth/SignUp';
 import ResetPassword from './pages/Auth/ResetPassword';
 import NotFound from './pages/NotFound';
-
+import SignOut from './pages/Auth/SignOut';
 
 const AppRouter = () => {
   return <Router>
@@ -18,6 +18,7 @@ const AppRouter = () => {
       <Route exact path='/' element={<Home/>}/>
       <Route exact path="/SignIn" element={<SignIn/>}/>
       <Route exact path="/SignUp" element={<SignUp/>}/>
+      <Route exact path="/SignOut" element={<SignOut/>}/>
       <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
       <Route path="*" element={<NotFound/>}/>
     </Routes>

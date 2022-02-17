@@ -1,5 +1,122 @@
 import React, {useState} from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
+import { Popover, Transition, Menu } from '@headlessui/react'
 import { Toggle } from "../ThemeToggle";
+import { logout } from "../../firebase";
+import { useNavigate } from "react-router-dom";
+
+
+const ProfileIconMenu = props => {
+  const { children, customClass } = props 
+  const [user, loadingUser, error] = useAuthState(auth);
+  const navigate = useNavigate()
+
+  return (
+    <Menu>
+          {({ open }) => (
+            <>
+              <Menu.Button>
+                <div>{children}</div>
+              </Menu.Button>
+              <Transition
+                show={open}
+                enter="transition ease-out duration-500"
+                enterFrom=" opacity-0 "
+                enterTo=" opacity-100 "
+                leave="transition ease-in duration-500"
+                leaveFrom=" opacity-100 "
+                leaveTo=" opacity-0 "
+              >
+                <div className="static">
+                {user?
+                  <Menu.Items
+                    static
+                    className="absolute right-0 w-52 mt-4 origin-top-right origin-top-right bg-gray-300 dark:bg-gray-900 border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                  >
+                    <div className="px-4 py-3">
+                      <p className="text-sm leading-5 text-gray-900 dark:text-gray-200">Signed in as</p>
+                      <p className="text-sm font-medium leading-5 text-gray-900 dark:text-gray-200 truncate">
+                        tom@example.com
+                      </p>
+                    </div>
+                    <div className="py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#account-settings"
+                            className={`${
+                              active
+                                ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200"
+                                : "text-gray-700 dark:text-gray-100"
+                            } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                          >
+                            Account settings
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </div>
+                    <div className="py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={`${
+                              active
+                              ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200"
+                              : "text-gray-700 dark:text-gray-100"
+                            } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                            onClick={() => navigate('/SignOut')}
+                          >
+                            Sign out
+                          </div>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                  :
+                  <Menu.Items
+                    static
+                    className="absolute right-0 w-40 mt-4 origin-top-right origin-top-right bg-gray-300 dark:bg-gray-900 border border-gray-200  divide-gray-100 rounded-md shadow-lg outline-none"
+                  >
+                    <div className="py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={`${
+                              active
+                              ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200"
+                              : "text-gray-700 dark:text-gray-100"
+                            } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                            onClick={() => navigate('/SignIn')}
+                          >
+                            Sign In
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={`${
+                              active
+                              ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200"
+                              : "text-gray-700 dark:text-gray-100"
+                            } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                            onClick={() => navigate('/SignUp')}
+                          >
+                            Sign Up
+                          </div>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                }
+                </div>
+              </Transition>
+            </>
+          )}
+        </Menu>
+  )
+}
 
 const Header = () => {
 
@@ -51,13 +168,13 @@ const Header = () => {
                 ArchiveCom
               </a>
             </div>
-            <div className="order-2 md:order-3 flex items-center" id="nav-content">
-              <a className="inline-block" href="#">
+            <div className="relative order-2 md:order-3 flex items-center" id="nav-content">
+              <ProfileIconMenu customClass="pt-0.5 inline-block" >
                 <svg className="fill-current dark:text-gray-200 hover:text-black dark:hover:text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                   <circle fill="none" cx="12" cy="7" r="3" />
                   <path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
                 </svg>
-              </a>
+              </ProfileIconMenu>
               <a className="pl-3 inline-block" href="#">
                 <svg className="fill-current dark:text-gray-200 hover:text-black dark:hover:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M21,7H7.462L5.91,3.586C5.748,3.229,5.392,3,5,3H2v2h2.356L9.09,15.414C9.252,15.771,9.608,16,10,16h8 c0.4,0,0.762-0.238,0.919-0.606l3-7c0.133-0.309,0.101-0.663-0.084-0.944C21.649,7.169,21.336,7,21,7z M17.341,14h-6.697L8.371,9 h11.112L17.341,14z" />

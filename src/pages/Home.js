@@ -1,5 +1,4 @@
 import React from 'react';
-import { logout } from '../firebase';
 import Footer from '../Components/MainLayout/Footer';
 import Header from '../Components/MainLayout/Header';
 import Background from '../Components/Background';
@@ -78,8 +77,6 @@ const Home = () => {
   return (
   <div style={{backgroundImage}}>
   <Background className={"dark:bg-transparent"}>
-      {/* <div className='text-slate-900 dark:text-slate-400'>Home page</div>
-      <div className='text-slate-900 dark:text-slate-400 cursor-pointer' onClick={() => logout()}>Sign Out</div> */}
         <Header />
         <div>
           <section className="py-8">
@@ -87,7 +84,7 @@ const Home = () => {
               <nav id="store" className="w-full z-30 top-0 px-6 py-1">
                 <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
                   <div className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 dark:text-gray-100 dark:hover:text-white text-xl " >
-                    Store
+                    Featured
                   </div>
                   <div className="flex items-center" id="store-nav-content">
                     <a className="pl-3 inline-block no-underline" href="#">
