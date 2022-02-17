@@ -2,7 +2,7 @@ import React from 'react'
 
 const styles = {
     svgBackground: {
-        backgroundImage: "url(" + 'https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg)',
+        // backgroundImage: "url(" + 'https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg)',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center 110px',
         backgroundSize: '100%',
@@ -16,7 +16,7 @@ const styles = {
 const SvgBackground = (props) => {
 
     return (
-        <div {...props} style={styles.svgBackground} >
+        <div {...props} className={"bg-[url(./img/genericBg.svg)]"} style={styles.svgBackground} >
             {props.children}
         </div>
     )
