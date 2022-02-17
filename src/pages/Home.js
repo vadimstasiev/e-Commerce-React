@@ -1,7 +1,7 @@
 import React from 'react';
 import { logout } from '../firebase';
-import Footer from '../Components/ShopLayout/Footer';
-import Header from '../Components/ShopLayout/Header';
+import Footer from '../Components/MainLayout/Footer';
+import Header from '../Components/MainLayout/Header';
 import Background from '../Components/Background';
 
 
@@ -83,12 +83,12 @@ const Home = () => {
         <Header />
         <div>
           <section className="py-8">
-            <div className="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+            <div className="container mx-auto items-center flex-wrap pt-4 pb-12">
               <nav id="store" className="w-full z-30 top-0 px-6 py-1">
                 <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
-                  <a className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 dark:text-gray-100 dark:hover:text-white text-xl " href="#">
+                  <div className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 dark:text-gray-100 dark:hover:text-white text-xl " >
                     Store
-                  </a>
+                  </div>
                   <div className="flex items-center" id="store-nav-content">
                     <a className="pl-3 inline-block no-underline" href="#">
                       <svg className="fill-current text-gray-800 dark:text-gray-100 dark:hover:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
