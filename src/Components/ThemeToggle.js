@@ -6,17 +6,17 @@ import { ThemeContext } from './ThemeContext';
 
 const Toggle = (props) => {
     const { theme, setTheme } = React.useContext(ThemeContext);
-    const { customClass } = props 
+    const customClasses = props.className
     return <div className="transition duration-500 ease-in-out rounded-full p-2">
         {theme === 'dark' ? (
             <FaSun
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className={`text-gray-500 dark:text-gray-400 text-2xl cursor-pointer  ${customClass}`}
+                className={`text-gray-500 dark:text-gray-400 text-2xl cursor-pointer  ${customClasses}`}
             />
         ) : (
                 <FaMoon
                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                    className={`text-gray-500 dark:text-gray-400 text-2xl cursor-pointer  ${customClass}`}
+                    className={`text-gray-500 dark:text-gray-400 text-2xl cursor-pointer  ${customClasses}`}
                 />
             )}
     </div>

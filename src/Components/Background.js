@@ -1,9 +1,10 @@
 //Background.js
 import React from 'react';
 
-const Background = ( { children } ) => {
+const Background = props => {
+    const { children, className } = props 
     return (
-        <div className="bg-white dark:bg-gray-800 transition-all">
+        <div className={`bg-white dark:bg-gray-800 transition-all ${className}`}>
             {children}
         </div>
     )
