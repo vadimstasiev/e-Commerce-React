@@ -6,8 +6,8 @@ const Header = () => {
   const [isActive, setIsActive] = useState(false);
 
 
-  const activeSide = "bg-gray-800 h-screen w-80 transform transition-all fixed duration-700 text-white flex justify-center p-2"
-  const hiddenSide = "bg-gray-800 h-screen w-80 transform transition-all fixed duration-700 text-white flex justify-center p-2 -translate-x-80"
+  const activeSide = "bg-gray-300 dark:bg-gray-900 h-screen w-80 transform transition-all fixed duration-700 text-white flex justify-center p-2"
+  const hiddenSide = "bg-gray-300 dark:bg-gray-900 h-screen w-80 transform transition-all fixed duration-700 text-white flex justify-center p-2 -translate-x-80"
   const activeButton = "cursor-pointer transition-all transform duration-700 flex items-center justify-center"
   const normalButton = "fixed cursor-pointer transition-all transform duration-700 flex items-center justify-center translate-x-0"
 
