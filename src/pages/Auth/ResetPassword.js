@@ -83,7 +83,7 @@ const SignIn = (props) => {
                       </button>
                       
                       <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
-                        <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignIn')}>Sign In, instead.</div>
+                        <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignIn', {from})}>Sign In, instead.</div>
                       </div>
                     </div>
                   </div>

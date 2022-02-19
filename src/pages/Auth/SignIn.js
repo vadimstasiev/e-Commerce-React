@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { RollbackOutlined } from '@ant-design/icons';
 
 
@@ -12,9 +12,10 @@ import { auth, signInWithGoogle } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Background from "../../Components/Background";
 
-const SignIn = (props) => {
-    const {from} = props
+const SignIn = () => {
     const navigate = useNavigate()
+    const {state} = useLocation()
+    const from = state?state.from:"/"
     const [user, loading, error] = useAuthState(auth);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -38,8 +39,9 @@ const SignIn = (props) => {
     };
 
 
+
     useEffect(() => {
-      if (user) navigate(from?from:"/");
+      if (user) navigate(from);
     }, [user, loading]);
 
     return (
@@ -80,8 +82,8 @@ const SignIn = (props) => {
                       Sign In
                   </button>
                   <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
-                      <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/ResetPassword')}>Forgot Password?</div>
-                      <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignUp')}>Don't have an account? Sign Up!</div>
+                      <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/ResetPassword', {state:{from}})}>Forgot Password?</div>
+                      <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignUp', {state:{from}})}>Don't have an account? Sign Up!</div>
                   </div>
                 </div>
             </form>

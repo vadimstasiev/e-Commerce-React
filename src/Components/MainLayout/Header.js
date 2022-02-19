@@ -44,16 +44,16 @@ const ProfileIconMenu = props => {
                     <div className="py-1">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#account-settings"
-                            className={`${
+                          <div
+                            className={`cursor-pointer ${
                               active
                                 ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200"
                                 : "text-zinc-700 dark:text-zinc-100"
                             } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                            onClick={() => navigate('/AccountSettings')}
                           >
                             Account settings
-                          </a>
+                          </div>
                         )}
                       </Menu.Item>
                     </div>
@@ -61,7 +61,7 @@ const ProfileIconMenu = props => {
                       <Menu.Item>
                         {({ active }) => (
                           <div
-                            className={`${
+                            className={`cursor-pointer ${
                               active
                               ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200"
                               : "text-zinc-700 dark:text-zinc-100"
@@ -83,7 +83,7 @@ const ProfileIconMenu = props => {
                       <Menu.Item>
                         {({ active }) => (
                           <div
-                            className={`${
+                            className={`cursor-pointer ${
                               active
                               ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200"
                               : "text-zinc-700 dark:text-zinc-100"
@@ -97,7 +97,7 @@ const ProfileIconMenu = props => {
                       <Menu.Item>
                         {({ active }) => (
                           <div
-                            className={`${
+                            className={`cursor-pointer ${
                               active
                               ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200"
                               : "text-zinc-700 dark:text-zinc-100"

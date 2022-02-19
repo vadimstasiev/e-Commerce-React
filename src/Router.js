@@ -20,6 +20,9 @@ const AppRouter = () => {
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/SignOut" element={<SignOut/>}/>
       <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
+      <Route exact path='/AccountSettings' element={<PrivateRoute from="/AccountSettings"/>}>
+        <Route exact path='/AccountSettings' element={<ResetPassword/>}/>
+      </Route>
       <Route path="*" element={<NotFound/>}/>
     </Routes>
 </Router>
