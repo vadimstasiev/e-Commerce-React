@@ -53,36 +53,36 @@ const SignUp = (props) => {
         <div className="grid place-items-center pt-40">
             <form className="bg-white dark:bg-zinc-900 shadow-md rounded px-8 pt-6 pb-8 mb-4 border-zinc-200 border-2">
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                  <label className="block text-zinc-700 dark:text-zinc-100 text-sm font-bold mb-2">
                       Name
                   </label>
-                  <input autoComplete="name" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
+                  <input autoComplete="name" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
                   id="name" type="text" placeholder="Email"
                   onChange={(e)=>setName(e.target.value)}
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                  <label className="block text-zinc-700 dark:text-zinc-100 text-sm font-bold mb-2">
                       Email
                   </label>
-                  <input autoComplete="email" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
+                  <input autoComplete="email" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
                   id="email" type="text" placeholder="Email"
                   onChange={(e)=>setEmail(e.target.value)}
                   />
                 </div>
                 <div className="mb-1">
-                  <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                  <label className="block text-zinc-700 dark:text-zinc-100 text-sm font-bold mb-2">
                       Password
                   </label>
-                  <input autoComplete="new-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  <input autoComplete="new-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="password" type="password" placeholder="******************"
                   onChange={(e)=>setPassword(e.target.value)}/>
                 </div>
                 <div className="mb-6">
-                  <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                  <label className="block text-zinc-700 dark:text-zinc-100 text-sm font-bold mb-2">
                       Confirm Password
                   </label>
-                  <input autoComplete="new-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  <input autoComplete="new-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="confirm_password" type="password" placeholder={ password.length===0?"******************":"*".repeat(password.length)}
                   onChange={(e)=>setConfirmPassword(e.target.value)}/>
                   {authError ? 
@@ -101,8 +101,8 @@ const SignUp = (props) => {
                 </div>
             </form>
             <div className="flex">
-              <RollbackOutlined className="text-gray-700 dark:text-gray-100 text-lg"/>
-              <div className="text-gray-700 dark:text-gray-100 text-lg font-bold pt-0.5 pl-2 cursor-pointer" onClick={() => navigate('/')}>
+              <RollbackOutlined className="text-zinc-700 dark:text-zinc-100 text-lg"/>
+              <div className="text-zinc-700 dark:text-zinc-100 text-lg font-bold pt-0.5 pl-2 cursor-pointer" onClick={() => navigate('/')}>
                   Home
               </div>
             </div>

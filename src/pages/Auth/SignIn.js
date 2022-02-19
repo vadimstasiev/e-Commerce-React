@@ -55,19 +55,19 @@ const SignIn = (props) => {
                   </button>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                  <label className="block text-zinc-700 dark:text-zinc-100 text-sm font-bold mb-2">
                       Email
                   </label>
-                  <input autoComplete="email" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
+                  <input autoComplete="email" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
                   id="email" type="text" placeholder="Email"
                   onChange={(e)=>setEmail(e.target.value)}
                   />
                 </div>
                 <div className="mb-6">
-                  <label className="block text-gray-700 dark:text-gray-100 text-sm font-bold mb-2">
+                  <label className="block text-zinc-700 dark:text-zinc-100 text-sm font-bold mb-2">
                       Password
                   </label>
-                  <input autoComplete="current-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-gray-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  <input autoComplete="current-password" className="shadow appearance-none border rounded w-full py-2 px-3 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   id="password" type="password" placeholder="******************"
                   onChange={(e)=>setPassword(e.target.value)}/>
                   {authError ? 
@@ -86,8 +86,8 @@ const SignIn = (props) => {
                 </div>
             </form>
             <div className="flex">
-              <RollbackOutlined className="text-gray-700 dark:text-gray-100 text-lg"/>
-              <div className="text-gray-700 dark:text-gray-100 text-lg font-bold pt-0.5 pl-2 cursor-pointer" onClick={() => navigate('/')}>
+              <RollbackOutlined className="text-zinc-700 dark:text-zinc-100 text-lg"/>
+              <div className="text-zinc-700 dark:text-zinc-100 text-lg font-bold pt-0.5 pl-2 cursor-pointer" onClick={() => navigate('/')}>
                   Home
               </div>
             </div>
