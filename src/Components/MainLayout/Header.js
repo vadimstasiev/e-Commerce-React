@@ -42,7 +42,7 @@ const AddMoreItemsIconMenu = props => {
                               ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200"
                               : "text-zinc-700 dark:text-zinc-100"
                             } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
-                            onClick={() => navigate('/SignIn')}
+                            onClick={() => navigate('/NewItemPost')}
                           >
                             Publish an item
                           </div>
@@ -190,15 +190,15 @@ const Header = () => {
   const [user, loadingUser, error] = useAuthState(auth);
 
 
-  const activeSide = "bg-zinc-300 dark:bg-zinc-900 h-screen w-80 transform transition-all fixed duration-700 text-white flex justify-center p-2"
-  const hiddenSide = "bg-zinc-300 dark:bg-zinc-900 h-screen w-80 transform transition-all fixed duration-700 text-white flex justify-center p-2 -translate-x-80"
-  const activeButton = "cursor-pointer transition-all transform duration-700 flex items-center justify-center"
-  const normalButton = "fixed cursor-pointer transition-all transform duration-700 flex items-center justify-center translate-x-0"
+  const activeSide = "bg-zinc-300 dark:bg-zinc-900 h-screen w-80 transform transition-all relative duration-700 text-white flex justify-center p-2"
+  const hiddenSide = "bg-zinc-300 dark:bg-zinc-900 h-screen w-80 transform transition-all relative duration-700 text-white flex justify-center p-2 -translate-x-80"
+  const activeButton = "z-20 cursor-pointer transition-all transform duration-700 flex items-center justify-center"
+  const normalButton = "z-20 fixed cursor-pointer transition-all transform duration-700 flex items-center justify-center translate-x-0"
 
     return (
       <header>
-        <nav id="header" className="w-full z-30 top-0 py-2">
-          <div className="flex transform fixed transition-all duration-1000 md:hidden">
+        <nav id="header" className=" w-full top-0">
+          <div className={`flex transform fixed transition-all duration-1000 md:hidden ${isActive ? "z-10":"z-0"}`}>
             <div className={isActive ? activeSide:hiddenSide}>
               <ul className="md:flex text-base text-zinc-700 pt-4 pt-14">
                 <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">FAQ</a></li>
@@ -238,29 +238,31 @@ const Header = () => {
             <div className="relative order-2 md:order-3 flex items-center" id="nav-content">
               
 
-              <AddMoreItemsIconMenu customClass="mr-4 pt-0.5 inline-block" >
+              <AddMoreItemsIconMenu customClass="mr-4 ml-4 pt-0.5 inline-block " >
                 <span className="rounded-md shadow-sm">
-                  <div className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white dark:bg-zinc-900 border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800">
-                    <AppstoreAddOutlined className="pt-0.5 dark:text-zinc-200 hover:text-black dark:hover:text-white"/>
+                  <div className=" inline-flex justify-center w-full px-4  text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white dark:bg-zinc-900 border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800">
+                    <AppstoreAddOutlined className="pt-0.5 text-lg dark:text-zinc-200 hover:text-black dark:hover:text-white"/>
+                    <div className="py-2">
 
-                    <svg
-                      className="w-5 h-5 ml-2 -mr-1 fill-current dark:text-zinc-200 hover:text-black dark:hover:text-white"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                      <svg
+                        className="w-5 h-5 ml-2 -mr-1 fill-current dark:text-zinc-200 hover:text-black dark:hover:text-white"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                          />
+                      </svg>
+                    </div>
                   </div>
                 </span>
               </AddMoreItemsIconMenu>
               
               <ProfileIconMenu customClass="mr-4 pt-0.5 inline-block" >
               <span className="rounded-md shadow-sm">
-                  <div className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white dark:bg-zinc-900 border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800">
+                  <div className=" inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white dark:bg-zinc-900 border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800">
                     <svg className="fill-current dark:text-zinc-200 hover:text-black dark:hover:text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                       <circle fill="none" cx="12" cy="7" r="3" />
                       <path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
