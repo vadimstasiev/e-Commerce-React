@@ -91,13 +91,13 @@ const SignUp = (props) => {
                   : null}
                 </div>
                 <div className="flex items-center justify-between">
-                  <button className="bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+                  <button className="bg-gray-500 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
                     onClick={handleSubmit}>
                         Sign Up
                   </button>
-                  <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
-                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/ResetPassword', {state:{from}})}>Forgot Password?</div>
-                    <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignIn', {state:{from}})}>Already have an account? Sign In!</div>
+                  <div className="inline-block align-baseline font-bold text-sm ml-20 text-gray-500">
+                    <div className="hover:text-gray-800 cursor-pointer" onClick={() => navigate('/ResetPassword', {state:{from}})}>Forgot Password?</div>
+                    <div className="hover:text-gray-800 cursor-pointer" onClick={() => navigate('/SignIn', {state:{from}})}>Already have an account? Sign In!</div>
                   </div>
                 </div>
             </form>

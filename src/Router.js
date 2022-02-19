@@ -7,21 +7,19 @@ import SignUp from './pages/Auth/SignUp';
 import ResetPassword from './pages/Auth/ResetPassword';
 import NotFound from './pages/NotFound';
 import SignOut from './pages/Auth/SignOut';
+import AccountSettings from './pages/AccountSettings';
 
 const AppRouter = () => {
   return <Router>
     <Routes>
-      {/* This is how to create Private Route */}
-      <Route exact path='/test' element={<PrivateRoute/>}>
-        <Route exact path='/test' element={<Home/>}/>
-      </Route>
       <Route exact path='/' element={<Home/>}/>
       <Route exact path="/SignIn" element={<SignIn/>}/>
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/SignOut" element={<SignOut/>}/>
       <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
+      {/* Private Route is only accessible when a user is logged in */}
       <Route exact path='/AccountSettings' element={<PrivateRoute from="/AccountSettings"/>}>
-        <Route exact path='/AccountSettings' element={<ResetPassword/>}/>
+        <Route exact path='/AccountSettings' element={<AccountSettings/>}/>
       </Route>
       <Route path="*" element={<NotFound/>}/>
     </Routes>

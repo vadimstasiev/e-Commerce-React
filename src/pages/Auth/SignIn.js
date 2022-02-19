@@ -51,7 +51,7 @@ const SignIn = () => {
         <div className="grid place-items-center pt-40">
             <form className="bg-white dark:bg-zinc-900 shadow-md rounded px-8 pt-6 pb-8 mb-4 border-zinc-200 border-2">
                 <div className="mb-4">
-                  <button className="w-full bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+                  <button className="w-full bg-gray-500 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
                     onClick={signInWithGoogle}>
                         Login with Google
                   </button>
@@ -77,13 +77,13 @@ const SignIn = () => {
                   : null}
                 </div>
                 <div className="flex items-center justify-between">
-                  <button className="bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+                  <button className="bg-gray-500 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
                     onClick={handleSubmit}>
                       Sign In
                   </button>
-                  <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
-                      <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/ResetPassword', {state:{from}})}>Forgot Password?</div>
-                      <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignUp', {state:{from}})}>Don't have an account? Sign Up!</div>
+                  <div className="inline-block align-baseline font-bold text-sm ml-20 text-gray-500">
+                      <div className="hover:text-gray-800 cursor-pointer" onClick={() => navigate('/ResetPassword', {state:{from}})}>Forgot Password?</div>
+                      <div className="hover:text-gray-800 cursor-pointer" onClick={() => navigate('/SignUp', {state:{from}})}>Don't have an account? Sign Up!</div>
                   </div>
                 </div>
             </form>
