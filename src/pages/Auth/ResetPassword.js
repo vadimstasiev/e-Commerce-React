@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import { Result } from 'antd';
 import { Link } from 'react-router-dom';
-import { useFirebase } from 'react-redux-firebase'
 import { useNavigate } from "react-router-dom";
+import { sendPasswordReset } from "../../firebase";
 
 import SvgBackground from "../../Components/SvgBackground";
 
@@ -17,11 +17,10 @@ const SignIn = (props) => {
 
     const [authError, setAuthError] = useState("");
 
-    const firebase = useFirebase()
 
     const submitEmail = e => {
         console.log(email)
-        firebase.resetPassword(email)
+        sendPasswordReset(email)
         .then(() => {
             setAuthError("")
             setSubmitted(true)
@@ -51,13 +50,13 @@ const SignIn = (props) => {
                 subTitle="Please check your email and follow the instructions to reset your password!"
                 // extra={}
             />
-            <Link to='/Login'>
+            <Link to='/SignIn'>
                     <button type="button" className="mt-5 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 
                         bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2
                         focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 
                         dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                      {"Back to Login"}
+                      {"Back to Sign In"}
                     </button>
             </Link>
           </div>  
