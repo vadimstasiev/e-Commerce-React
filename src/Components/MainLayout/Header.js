@@ -203,11 +203,16 @@ const Header = () => {
           <div className={`order-1 flex transform fixed transition-all duration-1000 md:hidden ${isActive ? "z-10":"z-0"}`}>
             <div className={isActive ? activeSide:hiddenSide}>
               <ul className="md:flex text-base text-zinc-700 pt-4 pt-14">
+                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/NewItemPost')}>Publish an Item</a></li>
+                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/Browse')}>Browse</a></li>
+                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/FAQ')}>FAQ</a></li>
                 {
                   user?
                     <>
                       <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/AccountSettings')}>Account settings</a></li>
+                      <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/Messages')}>Messages</a></li>
                       <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/SignOut')}>Sign Out</a></li>
+
                     </>
                   :
                     <>
@@ -215,9 +220,6 @@ const Header = () => {
                       <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/SignUp')}>Sign Up</a></li>
                     </>
                 }
-                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/NewItemPost')}>Publish an Item</a></li>
-                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" href="#">FAQ</a></li>
-                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" href="#">About</a></li>
               </ul>
             </div>
           </div>
@@ -234,11 +236,12 @@ const Header = () => {
               </div>
               <input className="hidden" type="checkbox" id="menu-toggle" />
             </div>
-            <div className="lg:order-3 order-8 hidden md:flex md:items-center w-auto w-full" id="menu">
+            <div className="lg:order-3 order-8 hidden md:flex md:items-center md:pt-4 lg:pt-0 w-auto w-full" id="menu">
               <nav>
                 <ul className="md:flex items-center justify-between text-base text-zinc-700 pt-4 md:pt-0">
-                  <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">FAQ</a></li>
-                  <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">About</a></li>
+                  <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" onClick={() => navigate('/Browse')}>Browse</a></li>
+                  <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" onClick={() => navigate('/Messages')}>Messages</a></li>
+                  <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" onClick={() => navigate('/FAQ')}>FAQ</a></li>
                 </ul>
               </nav>
             </div>
