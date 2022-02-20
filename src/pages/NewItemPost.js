@@ -118,7 +118,7 @@ const NewItemPost = () => {
                     <div className="grid grid-cols-1 mt-5 mx-7">
                         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
                         <div className='flex items-center justify-center w-full'>
-                            <label className='flex flex-col border-4 border-dashed w-full h-auto hover:bg-gray-100 hover:border-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-900 group'>
+                            <label className='cursor-pointer flex flex-col border-4 border-dashed w-full h-auto hover:bg-gray-100 hover:border-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 group'>
                                 <div className='flex flex-col items-center justify-center py-2 px-2'>
                                     {
                                         imagesLocalUrl.length>0?
