@@ -188,12 +188,14 @@ const Header = () => {
 
   const [isActive, setIsActive] = useState(false);
   const [user, loadingUser, error] = useAuthState(auth);
+  const navigate = useNavigate()
+
 
 
   const activeSide = "bg-zinc-300 dark:bg-zinc-900 h-screen w-80 transform transition-all relative duration-700 text-white flex justify-center p-2"
   const hiddenSide = "bg-zinc-300 dark:bg-zinc-900 h-screen w-80 transform transition-all relative duration-700 text-white flex justify-center p-2 -translate-x-80"
   const activeButton = "z-20 cursor-pointer transition-all transform duration-700 flex items-center justify-center"
-  const normalButton = "z-20 fixed cursor-pointer transition-all transform duration-700 flex items-center justify-center translate-x-0"
+  const normalButton = "z-20 fixed cursor-pointer transition-all transform duration-700 flex items-center justify-center"
 
     return (
       <header>
@@ -201,12 +203,25 @@ const Header = () => {
           <div className={`order-1 flex transform fixed transition-all duration-1000 md:hidden ${isActive ? "z-10":"z-0"}`}>
             <div className={isActive ? activeSide:hiddenSide}>
               <ul className="md:flex text-base text-zinc-700 pt-4 pt-14">
-                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">FAQ</a></li>
-                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">About</a></li>
+                {
+                  user?
+                    <>
+                      <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/AccountSettings')}>Account settings</a></li>
+                      <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/SignOut')}>Sign Out</a></li>
+                    </>
+                  :
+                    <>
+                      <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/SignIn')}>Sign In</a></li>
+                      <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/SignUp')}>Sign Up</a></li>
+                    </>
+                }
+                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/NewItemPost')}>Publish an Item</a></li>
+                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" href="#">FAQ</a></li>
+                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" href="#">About</a></li>
               </ul>
             </div>
           </div>
-          <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">     
+          <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3 pt-4">     
             <div className="order-2 md:hidden">       
               <div className={isActive ? normalButton : activeButton}
               onClick={() =>setIsActive(!isActive)}>
