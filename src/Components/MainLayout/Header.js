@@ -198,7 +198,7 @@ const Header = () => {
     return (
       <header>
         <nav id="header" className=" w-full top-0">
-          <div className={`flex transform fixed transition-all duration-1000 md:hidden ${isActive ? "z-10":"z-0"}`}>
+          <div className={`order-1 flex transform fixed transition-all duration-1000 md:hidden ${isActive ? "z-10":"z-0"}`}>
             <div className={isActive ? activeSide:hiddenSide}>
               <ul className="md:flex text-base text-zinc-700 pt-4 pt-14">
                 <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">FAQ</a></li>
@@ -207,7 +207,7 @@ const Header = () => {
             </div>
           </div>
           <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">     
-            <div className="md:hidden">       
+            <div className="order-2 md:hidden">       
               <div className={isActive ? normalButton : activeButton}
               onClick={() =>setIsActive(!isActive)}>
                   <label htmlFor="menu-toggle" className="cursor-pointer block">
@@ -219,7 +219,7 @@ const Header = () => {
               </div>
               <input className="hidden" type="checkbox" id="menu-toggle" />
             </div>
-            <div className="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
+            <div className="lg:order-3 order-8 hidden md:flex md:items-center w-auto w-full" id="menu">
               <nav>
                 <ul className="md:flex items-center justify-between text-base text-zinc-700 pt-4 md:pt-0">
                   <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4" href="#">FAQ</a></li>
@@ -227,7 +227,7 @@ const Header = () => {
                 </ul>
               </nav>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="lg:order-4 order-6">
               <a className="flex items-center tracking-wide no-underline hover:no-underline font-bold text-xl text-zinc-800 dark:text-zinc-100 hover:text-black dark:hover:text-white" href="#">
                 <svg className="fill-current mr-2 text-zinc-800 dark:text-zinc-100 dark:hover:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M5,22h14c1.103,0,2-0.897,2-2V9c0-0.553-0.447-1-1-1h-3V7c0-2.757-2.243-5-5-5S7,4.243,7,7v1H4C3.447,8,3,8.447,3,9v11 C3,21.103,3.897,22,5,22z M9,7c0-1.654,1.346-3,3-3s3,1.346,3,3v1H9V7z M5,10h2v2h2v-2h6v2h2v-2h2l0.002,10H5V10z" />
@@ -235,7 +235,7 @@ const Header = () => {
                 LocableCom
               </a>
             </div>
-            <div className="relative order-2 md:order-3 flex items-center" id="nav-content">
+            <div className="lg:order-5 order-7 hidden md:flex relative items-center " id="nav-content">
               
 
               <AddMoreItemsIconMenu customClass="mr-4 ml-4 pt-0.5 inline-block " >
