@@ -52,7 +52,7 @@ const NewItemPost = () => {
         <Background>
         <SvgBackground>
             <FixedToggle/>
-            <div className="flex h-screen items-center justify-center  ">
+            <div className="flex my-4 items-center justify-center  ">
                 <div className="grid bg-white dark:bg-zinc-900 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                     <div className="grid grid-cols-1 mt-5 mx-7">
                         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Item Name</label>
