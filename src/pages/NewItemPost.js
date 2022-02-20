@@ -4,6 +4,7 @@ import SvgBackground from "../Components/SvgBackground";
 import {FixedToggle} from "../Components/ThemeToggle";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SyncOutlined } from '@ant-design/icons';
+import PriceInput from '../Components/Input/PriceInput';
 
 
 
@@ -11,6 +12,7 @@ const NewItemPost = () => {
     const navigate = useNavigate()
     const [itemName, setItemName] = useState("");
     const [postcode, setPostcode] = useState("");
+    const [price, setPrice] = useState("");
     const [itemDescription, setItemDescription] = useState("");
     const [isValidatingPostcode, setIsValidatingPostcode] = useState(false);
 
@@ -81,13 +83,18 @@ const NewItemPost = () => {
                         </select>
                     </div> */}
 
-                    <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Price</label>
-                    <input className="py-2 px-3 rounded-lg border-2 border-gray-300 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="Price" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+                        <div className="grid grid-cols-1">
+                            <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Price</label>
+                            <PriceInput
+                                className="py-2 px-3 rounded-lg border-2 border-gray-300 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                                onChange={value => setPrice(value)}    
+                            />
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 mt-5 mx-7">
-                    <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
+                        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
                         <div className='flex items-center justify-center w-full'>
                             <label className='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-900 group'>
                                 <div className='flex flex-col items-center justify-center pt-7'>
@@ -100,8 +107,8 @@ const NewItemPost = () => {
                     </div>
 
                     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-                    <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => navigate('/')} >Cancel</button>
-                    <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Create</button>
+                        <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => navigate('/')} >Cancel</button>
+                        <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Create</button>
                     </div>
                 </div>
             </div>
