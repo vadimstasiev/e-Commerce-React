@@ -12,8 +12,10 @@ const NewItemPost = () => {
     const navigate = useNavigate()
     const [itemName, setItemName] = useState("");
     const [postcode, setPostcode] = useState("");
-    const [price, setPrice] = useState("");
     const [itemDescription, setItemDescription] = useState("");
+    const [price, setPrice] = useState("");
+    const [images, setImages] = useState([]);
+    const [imagesLocalUrl, setImagesLocalUrl] = useState([]);
     const [isValidatingPostcode, setIsValidatingPostcode] = useState(false);
 
     const validatePostCode = async postcode => {
@@ -25,6 +27,26 @@ const NewItemPost = () => {
         }
         setIsValidatingPostcode(false)
     }
+
+    const getImageUrl = (file) => {
+        return URL.createObjectURL(file)
+    };
+
+    const handleFilesPicked = async e => {
+        const fileList = e.target.files
+        if (fileList) {
+            if (fileList.length>0) {
+                const URLs = [];
+                for (let i = 0; i < fileList.length; i++) {
+                    URLs.push(getImageUrl(fileList[i]));
+                }
+                setImagesLocalUrl(URLs)
+
+                setImages(fileList)
+                console.log(URLs)
+            }
+        }
+    };
 
     return (
         <Background>
@@ -96,12 +118,27 @@ const NewItemPost = () => {
                     <div className="grid grid-cols-1 mt-5 mx-7">
                         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
                         <div className='flex items-center justify-center w-full'>
-                            <label className='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-900 group'>
-                                <div className='flex flex-col items-center justify-center pt-7'>
-                                <svg className="w-10 h-10 text-gray-400 group-hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                <p className='lowercase text-sm text-gray-400 group-hover:text-gray-600 pt-1 tracking-wider'>Select a photo</p>
-                                </div>
-                            <input type='file' className="hidden" />
+                            <label className='flex flex-col border-4 border-dashed w-full h-auto hover:bg-gray-100 hover:border-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-900 group'>
+                                <div className='flex flex-col items-center justify-center py-2 px-2'>
+                                    {
+                                        imagesLocalUrl.length>0?
+                                        <div className="grid grid-cols-3 gap-4 flex items-center">
+                                        {imagesLocalUrl.map((url, i) => <img
+                                                key={i} 
+                                                src={url}
+                                                className="mb-4"
+                                            />
+                                            )
+                                        }
+                                        </div>
+                                        :
+                                        <div className='flex flex-col items-center justify-center py-4'>
+                                            <svg className="w-10 h-10 text-gray-400 group-hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            <p className='lowercase text-sm text-gray-400 group-hover:text-gray-600 pt-1 tracking-wider'>Select a photo</p>
+                                        </div>
+                                    }
+                                    </div>
+                            <input type='file' multiple className="hidden" onChange={handleFilesPicked}/>
                             </label>
                         </div>
                     </div>
