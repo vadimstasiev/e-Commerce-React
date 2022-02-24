@@ -19,7 +19,11 @@ import {
     where,
     addDoc,
 } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
 
+import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+const storage = getStorage();
 
 const NewItemPost = () => {
     const navigate = useNavigate()
@@ -30,6 +34,7 @@ const NewItemPost = () => {
     const [images, setImages] = useState([]);
     const [imagesLocalUrl, setImagesLocalUrl] = useState([]);
     const [imagesUploadedUrl, setImagesUploadedUrl] = useState([]);
+    const [imagesProgress, setImagesProgress] = useState([]);
     // none, loading, error, success
     const [postcodeInputStatus, setPostcodeInputStatus] = useState("none"); 
     const [user, loadingUser, error] = useAuthState(auth);
@@ -70,15 +75,68 @@ const NewItemPost = () => {
 
     const submit = async () => {
         // if valid
-        await addDoc(collection(db, "products"), {
-            userUid: user.uid,
-            name: itemName,
-            postcode,
-            itemDescription,
-            price,
-            imagesUploadedUrl
-        });
+        const urlList = []
+
+        const localImagesState = []
+
+        for (const i in Array.from(images)) {
+            const image = images[i]
+            const storageRef = ref(storage, `${uuidv4()}-${image.name}`);
+            // urlList.push(await uploadBytes(storageRef, image));
+            const uploadTask = uploadBytesResumable(storageRef, image);
+
+            uploadTask.on('state_changed', (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                switch (snapshot.state) {
+                    case 'paused':
+                        localImagesState.push(
+                            {
+                                image:i,
+                                state: "paused",
+                                progress
+                            }
+                        )
+                      break;
+                    case 'running':
+                        localImagesState.push(
+                            {
+                                image:i,
+                                state: "running",
+                                progress
+                            }
+                        )
+                      break;
+                }
+            }, 
+            (error) => {
+                // Handle unsuccessful uploads
+                console.log(error)
+            }, 
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    // console.log('File available at', downloadURL, i);
+                });
+            }
+            );
+        }
+        // setImagesProgress(localImagesState)
+
+        // console.log(urlList)
+        // await addDoc(collection(db, "items"), {
+        //     userUid: user.uid,
+        //     name: itemName,
+        //     postcode,
+        //     itemDescription,
+        //     price,
+        //     imagesUploadedUrl
+        // });
     }
+
+    useEffect(() => {
+        console.log(imagesProgress)
+        console.log(imagesProgress.length, imagesLocalUrl.length)
+    }, [imagesProgress]);
 
     return (
         <Background>
@@ -173,11 +231,24 @@ const NewItemPost = () => {
                                     {
                                         imagesLocalUrl.length>0?
                                         <div className="grid grid-cols-3 gap-4 flex items-center">
-                                        {imagesLocalUrl.map((url, i) => <img
-                                                key={i} 
-                                                src={url}
-                                                className="mb-4"
-                                            />
+                                        {imagesLocalUrl.map((url, i) => <div key={i} className="mb-4">
+                                                <img
+                                                    src={url}
+                                                />
+                                                {
+                                                imagesProgress.length===imagesLocalUrl.length?
+                                                    <div>
+                                                        {imagesProgress[i].progress}
+                                                        {imagesProgress[i].progress==="running" &&
+                                                            <div>{imagesProgress[i].progress}</div>
+                                                        }
+                                                        {imagesProgress[i].progress==="paused" &&
+                                                            <div>paused</div>
+                                                        }
+                                                    </div>
+                                                    :<></>
+                                                }
+                                            </div>
                                             )
                                         }
                                         </div>

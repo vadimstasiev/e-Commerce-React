@@ -18,6 +18,7 @@ import {
   doc
 } from "firebase/firestore";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyAvn1YB-cFk1MYc7HNvFv82lRKsNnA-m7U",
     authDomain: "mobile-app-b6ebc.firebaseapp.com",
