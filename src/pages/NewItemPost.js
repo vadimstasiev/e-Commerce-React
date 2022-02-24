@@ -21,12 +21,13 @@ import {
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
-import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const storage = getStorage();
 
 const NewItemPost = () => {
     const navigate = useNavigate()
+    const [user, loadingUser, error] = useAuthState(auth);
     const [itemName, setItemName] = useState("");
     const [postcode, setPostcode] = useState("");
     const [itemDescription, setItemDescription] = useState("");
@@ -34,10 +35,10 @@ const NewItemPost = () => {
     const [images, setImages] = useState([]);
     const [imagesLocalUrl, setImagesLocalUrl] = useState([]);
     const [imagesUploadedUrl, setImagesUploadedUrl] = useState([]);
-    const [imagesProgress, setImagesProgress] = useState([]);
     // none, loading, error, success
     const [postcodeInputStatus, setPostcodeInputStatus] = useState("none"); 
-    const [user, loadingUser, error] = useAuthState(auth);
+    // none, uploading, uploaded
+    const [uploadingImagesStatus, setUploadingImagesStatus] = useState("none");
 
 
     const validatePostCode = postcode => {
@@ -66,77 +67,34 @@ const NewItemPost = () => {
                     URLs.push(getImageUrl(fileList[i]));
                 }
                 setImagesLocalUrl(URLs)
-
                 setImages(fileList)
-                console.log(URLs)
+
+                // upload starts here
+                const promises = []
+                setUploadingImagesStatus("uploading")
+                for (const image of fileList) {
+                    const storageRef = ref(storage, `${uuidv4()}-${image.name}`);
+                    promises.push(uploadBytes(storageRef, image).then(async ()=> await getDownloadURL(storageRef)));
+                    
+                }
+        
+                setImagesUploadedUrl(await Promise.all(promises))
+                setUploadingImagesStatus("uploaded")
             }
         }
     };
 
     const submit = async () => {
         // if valid
-        const urlList = []
-
-        const localImagesState = []
-
-        for (const i in Array.from(images)) {
-            const image = images[i]
-            const storageRef = ref(storage, `${uuidv4()}-${image.name}`);
-            // urlList.push(await uploadBytes(storageRef, image));
-            const uploadTask = uploadBytesResumable(storageRef, image);
-
-            uploadTask.on('state_changed', (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-                switch (snapshot.state) {
-                    case 'paused':
-                        localImagesState.push(
-                            {
-                                image:i,
-                                state: "paused",
-                                progress
-                            }
-                        )
-                      break;
-                    case 'running':
-                        localImagesState.push(
-                            {
-                                image:i,
-                                state: "running",
-                                progress
-                            }
-                        )
-                      break;
-                }
-            }, 
-            (error) => {
-                // Handle unsuccessful uploads
-                console.log(error)
-            }, 
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    // console.log('File available at', downloadURL, i);
-                });
-            }
-            );
-        }
-        // setImagesProgress(localImagesState)
-
-        // console.log(urlList)
-        // await addDoc(collection(db, "items"), {
-        //     userUid: user.uid,
-        //     name: itemName,
-        //     postcode,
-        //     itemDescription,
-        //     price,
-        //     imagesUploadedUrl
-        // });
+        await addDoc(collection(db, "items"), {
+            userUid: user.uid,
+            name: itemName,
+            postcode,
+            itemDescription,
+            price,
+            imagesUploadedUrl
+        });
     }
-
-    useEffect(() => {
-        console.log(imagesProgress)
-        console.log(imagesProgress.length, imagesLocalUrl.length)
-    }, [imagesProgress]);
 
     return (
         <Background>
@@ -170,21 +128,21 @@ const NewItemPost = () => {
                                 {
                                     postcodeInputStatus==="loading" &&
                                         <>
-                                            <SyncOutlined spin  className="inline-block dark:text-zinc-200 pb-[6px] text-lg mb-2"/>
+                                            <SyncOutlined spin  className="inline-block dark:text-zinc-200 pb-[6px] text-xs text-light font-semibold mb-1 py-2 pl-2"/>
                                             <div className='inline-block dark:text-zinc-200 hover:text-black dark:hover:text-white px-1 pt-2'>Validating Postcode...</div>
                                         </>
                                 }
                                 {
                                     postcodeInputStatus==="error" &&
                                         <>
-                                            <CloseOutlined className="inline-block text-red-400 dark:text-red-600 pb-[6px] text-lg  mb-2"/>
+                                            <CloseOutlined className="inline-block text-red-400 dark:text-red-600 pb-[6px] text-xs text-light font-semibold mb-1 py-2 pl-2"/>
                                             <div className='inline-block dark:text-zinc-200 hover:text-black dark:hover:text-white px-1 pt-2'>Error, not a valid address.</div>
                                         </>
                                 }
                                 {
                                     postcodeInputStatus==="success" &&
                                         <>
-                                            <CheckOutlined className="inline-block text-green-400 dark:text-green-600 pb-[6px] text-sm text-lg mb-2"/>
+                                            <CheckOutlined className="inline-block text-green-400 dark:text-green-600 pb-[6px] text-xs text-light font-semibold mb-1 py-2 pl-2"/>
                                             <div className='inline-block dark:text-zinc-200 hover:text-black dark:hover:text-white px-1 pt-2'>Valid</div>
                                         </>
                                 }
@@ -224,34 +182,33 @@ const NewItemPost = () => {
                     </div>
 
                     <div className="grid grid-cols-1 mt-5 mx-7">
-                        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Photo</label>
+                        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">
+                            Upload Photo
+                        </label>
+                        <label className="md:text-sm text-xs text-light font-semibold mb-1 py-2">
+                            <div className="text-yellow-500">
+                                {uploadingImagesStatus==="uploading"&&" ( Uploading ... )"}
+                            </div>
+                            <div className="text-green-500">
+                                {uploadingImagesStatus==="uploaded"&&" ( Uploaded Successfully! )"}
+                            </div>
+                        </label>
                         <div className='flex items-center justify-center w-full'>
                             <label className='cursor-pointer flex flex-col border-4 border-dashed w-full h-auto hover:bg-gray-100 hover:border-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 group'>
                                 <div className='flex flex-col items-center justify-center py-2 px-2'>
                                     {
                                         imagesLocalUrl.length>0?
-                                        <div className="grid grid-cols-3 gap-4 flex items-center">
-                                        {imagesLocalUrl.map((url, i) => <div key={i} className="mb-4">
-                                                <img
-                                                    src={url}
-                                                />
-                                                {
-                                                imagesProgress.length===imagesLocalUrl.length?
-                                                    <div>
-                                                        {imagesProgress[i].progress}
-                                                        {imagesProgress[i].progress==="running" &&
-                                                            <div>{imagesProgress[i].progress}</div>
-                                                        }
-                                                        {imagesProgress[i].progress==="paused" &&
-                                                            <div>paused</div>
-                                                        }
-                                                    </div>
-                                                    :<></>
+                                        <>  
+                                                <div className="grid grid-cols-3 gap-4 flex items-center">
+                                                {   
+                                                    imagesLocalUrl.map((url, i) => <img
+                                                        key={i} 
+                                                        src={url}
+                                                        className="mb-4"/>
+                                                    )
                                                 }
-                                            </div>
-                                            )
-                                        }
-                                        </div>
+                                                </div>
+                                        </>
                                         :
                                         <div className='flex flex-col items-center justify-center py-4'>
                                             <svg className="w-10 h-10 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
