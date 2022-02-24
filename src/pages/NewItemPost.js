@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Background from '../Components/Background';
+import { auth, db } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 import SvgBackground from "../Components/SvgBackground";
 import {FixedToggle} from "../Components/ThemeToggle";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -9,7 +11,14 @@ import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
   } from "use-places-autocomplete";
-
+import {
+    getFirestore,
+    query,
+    getDocs,
+    collection,
+    where,
+    addDoc,
+} from "firebase/firestore";
 
 
 const NewItemPost = () => {
@@ -20,8 +29,11 @@ const NewItemPost = () => {
     const [price, setPrice] = useState("");
     const [images, setImages] = useState([]);
     const [imagesLocalUrl, setImagesLocalUrl] = useState([]);
+    const [imagesUploadedUrl, setImagesUploadedUrl] = useState([]);
     // none, loading, error, success
     const [postcodeInputStatus, setPostcodeInputStatus] = useState("none"); 
+    const [user, loadingUser, error] = useAuthState(auth);
+
 
     const validatePostCode = postcode => {
         setPostcodeInputStatus("loading")
@@ -55,6 +67,18 @@ const NewItemPost = () => {
             }
         }
     };
+
+    const submit = async () => {
+        // if valid
+        await addDoc(collection(db, "products"), {
+            userUid: user.uid,
+            name: itemName,
+            postcode,
+            itemDescription,
+            price,
+            imagesUploadedUrl
+        });
+    }
 
     return (
         <Background>
@@ -171,7 +195,7 @@ const NewItemPost = () => {
 
                     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
                         <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => navigate('/')} >Cancel</button>
-                        <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Create</button>
+                        <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => submit()}>Create</button>
                     </div>
                 </div>
             </div>
