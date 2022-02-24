@@ -85,15 +85,24 @@ const NewItemPost = () => {
     };
 
     const submit = async () => {
-        // if valid
-        await addDoc(collection(db, "items"), {
-            userUid: user.uid,
-            name: itemName,
-            postcode,
-            itemDescription,
-            price,
-            imagesUploadedUrl
-        });
+        if (
+            itemName.length>0 &&
+            postcodeInputStatus==="success" &&
+            itemDescription.length>0 &&
+            images.length>0 &&
+            uploadingImagesStatus==="uploaded"
+        ) {
+            await addDoc(collection(db, "items"), {
+                userUid: user.uid,
+                name: itemName,
+                postcode,
+                itemDescription,
+                price,
+                imagesUploadedUrl
+            }).then(navigate("/"))
+        } else {
+            console.log("fill all the boxes and wait for upload")
+        }
     }
 
     return (
@@ -103,8 +112,8 @@ const NewItemPost = () => {
             <div className="flex my-4 items-center justify-center">
                 <div className="grid bg-white dark:bg-zinc-900 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                     <div className="grid grid-cols-1 mt-5 mx-7">
-                        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Item Name</label>
-                        <input onChange={e => setItemName(e.target.value)} className="py-2 px-3 rounded-lg border-2 border-gray-300 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="Name" />
+                        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Item Title</label>
+                        <input onChange={e => setItemName(e.target.value)} className="py-2 px-3 rounded-lg border-2 border-gray-300 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="Please enter a descriptive title" />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
