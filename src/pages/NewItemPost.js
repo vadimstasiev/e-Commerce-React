@@ -23,11 +23,10 @@ const NewItemPost = () => {
     // none, loading, error, success
     const [postcodeInputStatus, setPostcodeInputStatus] = useState("none"); 
 
-    const validatePostCode = async postcode => {
+    const validatePostCode = postcode => {
         setPostcodeInputStatus("loading")
         const isValid = false
-        // await async api call
-        const results = await getGeocode({ address:postcode })
+        getGeocode({ address:postcode })
         .then((result)=>{
             setPostcode(postcode)
             setPostcodeInputStatus("success")
@@ -35,7 +34,6 @@ const NewItemPost = () => {
         .catch(e => {
             setPostcodeInputStatus("error")
         })
-        console.log(results)
     }
 
     const getImageUrl = (file) => {
