@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Footer from '../Components/MainLayout/Footer';
 import Header from '../Components/MainLayout/Header';
 import Background from '../Components/Background';
+import { useNavigate } from "react-router-dom";
 import { db, auth } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
@@ -77,7 +78,7 @@ const dummyList = [
 ]
 
 const Home = () => {
-
+  const navigate = useNavigate()
   const [items, setItems] = useState([]);
   
   const fetchItems = async () => {
@@ -90,8 +91,8 @@ const Home = () => {
     setItems([])
     await getDocs(collection(db, "items"))
     .then(data => {
-      data.docs.forEach((item, i) => {
-        setItems(previous => [...previous, {id: i, ...item.data()}])
+      data.docs.forEach((item) => {
+        setItems(previous => [...previous, {id: item.id, ...item.data()}])
       })
     })
     .catch(err=>{
@@ -136,7 +137,7 @@ const Home = () => {
               </nav>
               <div className="grid gap-y-10 sm:grid-cols-1 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                 {items.map((product) => (
-                  <div key={product.id} onClick={()=>{}} className="m-5 dark:bg-black/[.3] relative shadow-lg hover:shadow-xl dark:shadow-md dark:hover:shadow-xl cursor-pointer">
+                  <div key={product.id} onClick={() => navigate(`/item/${product.id}`)} className="m-5 dark:bg-black/[.3] relative shadow-lg hover:shadow-xl dark:shadow-md dark:hover:shadow-xl cursor-pointer">
                     <div className="pt-3 flex items-center justify-between mx-5">
                       <p className="text-zinc-800 dark:text-zinc-100 dark:hover:text-white w-5/6">{product.name}</p>
                       <svg className=" w-1/6 pr-2 pl-4 fill-current inline-block text-zinc-800 dark:text-zinc-100 dark:hover:text-white hover:text-black float-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
