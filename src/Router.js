@@ -8,7 +8,8 @@ import ResetPassword from './pages/Auth/ResetPassword';
 import NotFound from './pages/NotFound';
 import SignOut from './pages/Auth/SignOut';
 import AccountSettings from './pages/AccountSettings';
-import NewItemPost from './pages/NewItemPost';
+import NewItemPost from './pages/Item/NewItemPost';
+import ViewItem from './pages/Item/ViewItem';
 
 const AppRouter = () => {
   return <Router>
@@ -18,6 +19,7 @@ const AppRouter = () => {
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/SignOut" element={<SignOut/>}/>
       <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
+      <Route path="/item" element={<ViewItem/>}/>
       {/* Private Route is only accessible when a user is logged in */}
       <Route exact path='/AccountSettings' element={<PrivateRoute from="/AccountSettings"/>}>
         <Route exact path='/AccountSettings' element={<AccountSettings/>}/>

@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
-import Background from '../Components/Background';
-import { auth, db } from "../firebase";
+import Background from '../../Components/Background';
+import { auth, db } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import SvgBackground from "../Components/SvgBackground";
-import {FixedToggle} from "../Components/ThemeToggle";
+import SvgBackground from "../../Components/SvgBackground";
+import {FixedToggle} from "../../Components/ThemeToggle";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SyncOutlined, CloseOutlined, CheckOutlined  } from '@ant-design/icons';
-import PriceInput from '../Components/Input/PriceInput';
+import PriceInput from '../../Components/Input/PriceInput';
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
