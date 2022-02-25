@@ -87,10 +87,11 @@ const Home = () => {
     // data.docs.forEach(item => {
     //   setItems([...items, item.data()])
     // })
+    setItems([])
     await getDocs(collection(db, "items"))
     .then(data => {
-      data.forEach(item => {
-        setItems(previous => [...previous, item.data()])
+      data.docs.forEach((item, i) => {
+        setItems(previous => [...previous, {id: i, ...item.data()}])
       })
     })
     .catch(err=>{
@@ -103,13 +104,13 @@ const Home = () => {
     
   }, []);
 
-  useEffect(() => {
-    console.log(items)    
-  }, [items]);
+  // useEffect(() => {
+  //   console.log(items)    
+  // }, [items]);
   
   return (
-  <div style={{backgroundImage}}>
-  <Background className={"dark:bg-transparent"}>
+  <div style={{backgroundImage}} className="min-h-screen">
+  <Background className={"dark:bg-transparent min-h-screen"}>
         <Header />
         <div>
           <section className="py-8">
@@ -134,9 +135,9 @@ const Home = () => {
                 </div>
               </nav>
               <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                {dummyList.map((product) => (
+                {items.map((product) => (
                   <a key={product.id} href={product.href} className="m-5">
-                    <img className="hover:grow hover:shadow-lg" src={product.imageSrc} />
+                    <img className="hover:grow hover:shadow-lg" src={product.imagesUploadedUrl[0]} />
                     <div className="pt-3 flex items-center justify-between">
                       <p className="text-zinc-800 dark:text-zinc-100 dark:hover:text-white">{product.name}</p>
                       <svg className="h-6 w-6 fill-current text-zinc-800 dark:text-zinc-100 dark:hover:text-white hover:text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
