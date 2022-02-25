@@ -1,8 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Footer from '../Components/MainLayout/Footer';
 import Header from '../Components/MainLayout/Header';
 import Background from '../Components/Background';
+import { db, auth } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
+const backgroundImage = `
+    linear-gradient(
+      black,
+      transparent 10%,
+      transparent 80%,
+      transparent 10%,
+      black),
+    radial-gradient(rgb(120,120,120,0.9), 
+      transparent 100%),
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCI+CjxmaWx0ZXIgaWQ9Im4iIHg9IjAiIHk9IjAiPgo8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC43IiBudW1PY3RhdmVzPSIxMCIgc3RpdGNoVGlsZXM9InN0aXRjaCI+PC9mZVR1cmJ1bGVuY2U+CjwvZmlsdGVyPgo8cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzAwMCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIwLjQiPjwvcmVjdD4KPC9zdmc+"
+)`
 
 const dummyList = [
   {
@@ -64,18 +77,36 @@ const dummyList = [
 ]
 
 const Home = () => {
- 
-  const backgroundImage = `
-      linear-gradient(
-        black,
-        transparent 10%,
-        transparent 80%,
-        transparent 10%,
-        black),
-      radial-gradient(rgb(120,120,120,0.9), 
-        transparent 100%),
-      url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCI+CjxmaWx0ZXIgaWQ9Im4iIHg9IjAiIHk9IjAiPgo8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC43IiBudW1PY3RhdmVzPSIxMCIgc3RpdGNoVGlsZXM9InN0aXRjaCI+PC9mZVR1cmJ1bGVuY2U+CjwvZmlsdGVyPgo8cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzAwMCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIwLjQiPjwvcmVjdD4KPC9zdmc+"
-  )`
+
+  const [items, setItems] = useState([]);
+  
+  const fetchItems = async () => {
+    // console.log(db)
+    // const response = db.collection('items');
+    // const data = await response.get();
+    // data.docs.forEach(item => {
+    //   setItems([...items, item.data()])
+    // })
+    await getDocs(collection(db, "items"))
+    .then(data => {
+      data.forEach(item => {
+        setItems(previous => [...previous, item.data()])
+      })
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+  }
+
+  useEffect(() => {
+    fetchItems()
+    
+  }, []);
+
+  useEffect(() => {
+    console.log(items)    
+  }, [items]);
+  
   return (
   <div style={{backgroundImage}}>
   <Background className={"dark:bg-transparent"}>

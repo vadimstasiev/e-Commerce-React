@@ -225,7 +225,7 @@ const NewItemPost = () => {
                                         </div>
                                     }
                                     </div>
-                            <input type='file' multiple className="hidden" onChange={handleFilesPicked}/>
+                            <input type='file' multiple accept="image/*" className="hidden" onChange={handleFilesPicked}/>
                             </label>
                         </div>
                     </div>
