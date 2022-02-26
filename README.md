@@ -28,6 +28,10 @@ Calculating Distance:
 
 https://cloud.google.com/blog/products/maps-platform/how-calculate-distances-map-maps-javascript-api
 
+# Random postcode generator
+
+https://www.generatormix.com/random-uk-address-generator
+
 # Dummy test product list:
 
 ```json
