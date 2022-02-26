@@ -1,3 +1,4 @@
+import withRouter from '../../Components/withRouter'
 import Header from '../../Components/MainLayout/Header'
 import Footer from '../../Components/MainLayout/Footer'
 import React from 'react'
@@ -264,4 +265,4 @@ const ViewItem = () => {
   )
 }
 
-export default ViewItem
+export default withRouter(ViewItem)

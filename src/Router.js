@@ -19,7 +19,7 @@ const AppRouter = () => {
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/SignOut" element={<SignOut/>}/>
       <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
-      <Route path="/item" element={<ViewItem/>}/>
+      <Route path="/item/:id" element={<ViewItem/>}/>
       {/* Private Route is only accessible when a user is logged in */}
       <Route exact path='/AccountSettings' element={<PrivateRoute from="/AccountSettings"/>}>
         <Route exact path='/AccountSettings' element={<AccountSettings/>}/>
