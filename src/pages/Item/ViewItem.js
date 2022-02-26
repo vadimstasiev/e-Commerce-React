@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, {useEffect, useState} from 'react';
 import { db, auth } from '../../firebase';
 import { collection, doc, getDocs, getDoc, query, where } from 'firebase/firestore';
-import withRouter from '../../Components/withRouter'
+import withRouter from '../../Components/hooks/withRouter'
 import Header from '../../Components/MainLayout/Header'
 import Footer from '../../Components/MainLayout/Footer'
 import NoiseBackground from '../../Components/NoiseBackground'
@@ -10,6 +10,7 @@ import Background from '../../Components/Background'
 import FavouriteSidePanel from '../../Components/FavouriteSidePanel'
 import ItemCard from './ItemCard'
 import Loading from "../Auth/Loading";
+import OnScreenRender from "../../Components/OnScreenRender";
 
 
 
@@ -17,26 +18,29 @@ const ViewItem = (props) => {
     const navigate = useNavigate()
     const requestedItemId = props.router.params.id
     
-    const [items, setItems] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [itemsSameSeller, setItemsSameSeller] = useState([]);
+    const [itemsSimilar, setItemsSimilar] = useState([]);
     const [item, setItem] = useState();
   
     const fetchItems = async (userUid) => {
-        setItems([])
+        setItemsSameSeller([])
         console.log(userUid)
         const q = query(collection(db, "items"), where("userUid", "==", userUid));
         await getDocs(q)
         .then(data => {
             data.docs.forEach((item) => {
-                setItems(previous => [...previous, {id: item.id, ...item.data()}])
+                setItemsSameSeller(previous => [...previous, {id: item.id, ...item.data()}])
             })
         })
         .catch(err=>{
             console.log(err)
         })
+        setIsLoaded(true)
     }
 
     const fetchItem = async () => {
-        setItems([])
+        setItemsSameSeller([])
         console.log(requestedItemId)
         await getDoc(doc(db, "items", requestedItemId), )
         .then(data => {
@@ -61,9 +65,9 @@ const ViewItem = (props) => {
     }, [props.router.params]);
 
     // useEffect(() => {
-    //   console.log(items)    
+    //   console.log(itemsSameSeller)    
     //   console.log(item)    
-    // }, [items, item]);
+    // }, [itemsSameSeller, item]);
 
     if(!item) {
         return <Loading/>
@@ -106,12 +110,12 @@ const ViewItem = (props) => {
                             </div>
 
                             {
-                                items?.length>0?
+                                itemsSameSeller?.length>0 &&
                                     <div className="mt-16">
                                         <h3 className="text-gray-600 dark:text-zinc-200 text-2xl font-medium">More Products from this Seller</h3>
                                         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                                             {
-                                                items.map(product => {
+                                                itemsSameSeller.map(product => {
                                                     const maxList = 4
                                                     return (
                                                         <ItemCard key={product.id} product={product}/>
@@ -122,10 +126,31 @@ const ViewItem = (props) => {
                                             
                                         </div>
                                     </div>
-                                :
-                                    <></>
                             }
-
+                            {
+                                isLoaded &&
+                                <OnScreenRender callback={()=>{console.log("fuck you")}}>
+                                {
+                                    itemsSimilar?.length>0 &&
+                                        <div className="mt-16">
+                                            <h3 className="text-gray-600 dark:text-zinc-200 text-2xl font-medium">Similar Products</h3>
+                                            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+                                                {
+                                                    itemsSimilar.map(product => {
+                                                        const maxList = 4
+                                                        return (
+                                                            <ItemCard key={product.id} product={product}/>
+                                                        )
+                                                    })
+                                                }
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                }
+                                </OnScreenRender>
+                            }
+                            
                             
                         </div>
                     </main>
