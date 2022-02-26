@@ -253,7 +253,7 @@ const Header = () => {
                 LocableCom
               </a>
             </div>
-            <div className="lg:order-5 order-7 hidden md:flex relative items-center " id="nav-content">
+            <div className="z-50 lg:order-5 order-7 hidden md:flex relative items-center " id="nav-content">
               
 
               <AddMoreItemsIconMenu customClass="mr-4 ml-4 pt-0.5 inline-block " >
