@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, {useEffect, useState} from 'react';
 import { db, auth } from '../../firebase';
-import { collection, doc, getDocs, getDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, getDoc, query, where } from 'firebase/firestore';
 import withRouter from '../../Components/withRouter'
 import Header from '../../Components/MainLayout/Header'
 import Footer from '../../Components/MainLayout/Footer'
@@ -20,19 +20,15 @@ const ViewItem = (props) => {
     const [items, setItems] = useState([]);
     const [item, setItem] = useState();
   
-    const fetchItems = async () => {
-        // console.log(db)
-        // const response = db.collection('items');
-        // const data = await response.get();
-        // data.docs.forEach(item => {
-        //   setItems([...items, item.data()])
-        // })
+    const fetchItems = async (userUid) => {
         setItems([])
-        await getDocs(collection(db, "items"))
+        console.log(userUid)
+        const q = query(collection(db, "items"), where("userUid", "==", userUid));
+        await getDocs(q)
         .then(data => {
-        data.docs.forEach((item) => {
-            setItems(previous => [...previous, {id: item.id, ...item.data()}])
-        })
+            data.docs.forEach((item) => {
+                setItems(previous => [...previous, {id: item.id, ...item.data()}])
+            })
         })
         .catch(err=>{
             console.log(err)
@@ -40,12 +36,6 @@ const ViewItem = (props) => {
     }
 
     const fetchItem = async () => {
-        // console.log(db)
-        // const response = db.collection('items');
-        // const data = await response.get();
-        // data.docs.forEach(item => {
-        //   setItems([...items, item.data()])
-        // })
         setItems([])
         console.log(requestedItemId)
         await getDoc(doc(db, "items", requestedItemId), )
@@ -53,6 +43,8 @@ const ViewItem = (props) => {
             const actualData = data.data()
             if(actualData){
                 setItem(actualData)
+                // needs to get current item user id before fetching other items
+                fetchItems(actualData.userUid)
             } else {
                 navigate("/Not-Found")
             }
@@ -64,7 +56,6 @@ const ViewItem = (props) => {
     }
 
     useEffect(() => {
-        fetchItems()
         fetchItem()
         
     }, [props.router.params]);
