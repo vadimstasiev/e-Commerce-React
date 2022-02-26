@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, {useEffect, useState} from 'react';
 import { db, auth } from '../../firebase';
 import { collection, doc, getDocs, getDoc } from 'firebase/firestore';
@@ -8,14 +9,16 @@ import NoiseBackground from '../../Components/NoiseBackground'
 import Background from '../../Components/Background'
 import FavouriteSidePanel from '../../Components/FavouriteSidePanel'
 import ItemCard from './ItemCard'
+import Loading from "../Auth/Loading";
 
 
 
 const ViewItem = (props) => {
+    const navigate = useNavigate()
     const requestedItemId = props.router.params.id
     
     const [items, setItems] = useState([]);
-    const [item, setItem] = useState({});
+    const [item, setItem] = useState();
   
     const fetchItems = async () => {
         // console.log(db)
@@ -47,10 +50,16 @@ const ViewItem = (props) => {
         console.log(requestedItemId)
         await getDoc(doc(db, "items", requestedItemId), )
         .then(data => {
-            setItem(data.data())
+            const actualData = data.data()
+            if(actualData){
+                setItem(actualData)
+            } else {
+                navigate("/Not-Found")
+            }
         })
         .catch(err=>{
             console.log(err)
+            navigate("/Not-Found")
         })
     }
 
@@ -64,6 +73,10 @@ const ViewItem = (props) => {
     //   console.log(items)    
     //   console.log(item)    
     // }, [items, item]);
+
+    if(!item) {
+        return <Loading/>
+    }
 
     return ( 
         <div>
