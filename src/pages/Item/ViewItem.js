@@ -113,21 +113,29 @@ const ViewItem = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-16">
-                                <h3 className="text-gray-600 dark:text-zinc-200 text-2xl font-medium">More Products from this Seller</h3>
-                                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-                                    {
-                                        items.map(product => {
-                                            const maxList = 4
-                                            return (
-                                                <ItemCard key={product.id} product={product}/>
-                                            )
-                                        })
-                                    }
-                                    
-                                    
-                                </div>
-                            </div>
+
+                            {
+                                items?.length>0?
+                                    <div className="mt-16">
+                                        <h3 className="text-gray-600 dark:text-zinc-200 text-2xl font-medium">More Products from this Seller</h3>
+                                        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+                                            {
+                                                items.map(product => {
+                                                    const maxList = 4
+                                                    return (
+                                                        <ItemCard key={product.id} product={product}/>
+                                                    )
+                                                })
+                                            }
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                :
+                                    <></>
+                            }
+
+                            
                         </div>
                     </main>
                     <Footer/>
