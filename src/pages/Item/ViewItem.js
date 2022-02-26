@@ -246,7 +246,7 @@ const ViewItem = () => {
                                     products.map(product => {
                                         const maxList = 4
                                         return (
-                                            <ItemCard product={product}/>
+                                            <ItemCard key={product.id} product={product}/>
                                         )
                                     })
                                 }

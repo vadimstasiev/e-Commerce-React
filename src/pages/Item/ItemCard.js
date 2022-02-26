@@ -2,7 +2,7 @@ import React from 'react'
 
 const ItemCard = ({product}) => {
   return (
-    <div key={product.id} className="z-0 w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden dark:bg-black/[.3] relative">
+    <div className="z-0 w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden dark:bg-black/[.3] relative">
         <div className="flex items-end justify-end h-56 w-full bg-cover bg-center " style={{backgroundImage: `url("${product.imagesUploadedUrl[0]}")`}}>
             <button className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-white mx-5 -mb-4 focus:outline-none ">
             <svg className="fill-current h-8 w-8 text-zinc-800 dark:text-zinc-100 dark:hover:text-white float-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
