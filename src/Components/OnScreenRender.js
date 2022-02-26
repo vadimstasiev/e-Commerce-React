@@ -8,7 +8,7 @@ const OnScreenRender = ({children, callback}) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        if(isVisible===true){
+        if(isVisible===true && visible===false){
             setVisible(true)
             if(callback){
                 callback()

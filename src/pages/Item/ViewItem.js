@@ -23,14 +23,15 @@ const ViewItem = (props) => {
     const [itemsSimilar, setItemsSimilar] = useState([]);
     const [item, setItem] = useState();
   
-    const fetchItems = async (userUid) => {
+    const fetchItemsSameSeller = async (userUid, itemId) => {
         setItemsSameSeller([])
-        console.log(userUid)
         const q = query(collection(db, "items"), where("userUid", "==", userUid));
         await getDocs(q)
         .then(data => {
-            data.docs.forEach((item) => {
-                setItemsSameSeller(previous => [...previous, {id: item.id, ...item.data()}])
+            data.docs.forEach((itm) => {
+                if(itemId!=itm.id){
+                    setItemsSameSeller(previous => [...previous, {id: itm.id, ...itm.data()}])
+                }
             })
         })
         .catch(err=>{
@@ -39,16 +40,38 @@ const ViewItem = (props) => {
         setIsLoaded(true)
     }
 
+    const fetchItemsSimilar = async () => {
+        setItemsSimilar([])
+        let currentItemWords = item.name.split(" ");
+        for(const word of currentItemWords){
+            const q = query(collection(db, "items"), where('name', '>=', word), where('name', '<=', word+ '\uf8ff'));
+            await getDocs(q)
+            .then(data => {
+                data.docs.forEach((itm) => {
+                    if(item.id!=itm.id){
+                        setItemsSimilar(previous => [...previous, {id: itm.id, ...itm.data()}])
+                    }
+                })
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+        
+        
+        setIsLoaded(true)
+    }
+
     const fetchItem = async () => {
         setItemsSameSeller([])
-        console.log(requestedItemId)
-        await getDoc(doc(db, "items", requestedItemId), )
+        // console.log(requestedItemId)
+        await getDoc(doc(db, "items", requestedItemId))
         .then(data => {
             const actualData = data.data()
             if(actualData){
-                setItem(actualData)
+                setItem({id: data.id, ...actualData})
                 // needs to get current item user id before fetching other items
-                fetchItems(actualData.userUid)
+                fetchItemsSameSeller(actualData.userUid, data.id)
             } else {
                 navigate("/Not-Found")
             }
@@ -60,6 +83,7 @@ const ViewItem = (props) => {
     }
 
     useEffect(() => {
+        setIsLoaded(false)
         fetchItem()
         
     }, [props.router.params]);
@@ -108,9 +132,9 @@ const ViewItem = (props) => {
                                     </div>
                                 </div>
                             </div>
-
+                        
                             {
-                                itemsSameSeller?.length>0 &&
+                                itemsSameSeller?.length>0?
                                     <div className="mt-16">
                                         <h3 className="text-gray-600 dark:text-zinc-200 text-2xl font-medium">More Products from this Seller</h3>
                                         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
@@ -122,14 +146,16 @@ const ViewItem = (props) => {
                                                     )
                                                 })
                                             }
-                                            
-                                            
                                         </div>
                                     </div>
+                                :
+                                    <div className="py-16"></div>
                             }
                             {
                                 isLoaded &&
-                                <OnScreenRender callback={()=>{console.log("fuck you")}}>
+                                <OnScreenRender 
+                                    callback={fetchItemsSimilar}
+                                >
                                 {
                                     itemsSimilar?.length>0 &&
                                         <div className="mt-16">
@@ -143,8 +169,6 @@ const ViewItem = (props) => {
                                                         )
                                                     })
                                                 }
-                                                
-                                                
                                             </div>
                                         </div>
                                 }
