@@ -88,7 +88,7 @@ const ViewItem = (props) => {
                     {/* <FavouriteSidePanel/> */}
                     <main className="my-8">
                         <div className="container mx-auto px-6">
-                            <div className="xl:flex xl:items-center">
+                            <div className="xl:flex ">
                                 <div className="">
                                     <img className="h-full w-full rounded-md object-cover max-w-lg mx-auto" src={item.imagesUploadedUrl?item.imagesUploadedUrl[0]:""} alt="product photo"/>
                                 </div>
