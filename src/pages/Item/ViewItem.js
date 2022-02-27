@@ -220,7 +220,12 @@ const ViewItem = (props) => {
                             {
                                 itemsSameSeller?.length>0?
                                     <div className="mt-16">
-                                        <h3 className="text-gray-600 dark:text-zinc-200 text-2xl font-medium">More Products from this Seller</h3>
+                                        {
+                                            isItemOwnedByUser?
+                                                <h3 className="text-gray-600 dark:text-zinc-200 text-2xl font-medium">Your other Selling items</h3>
+                                            :
+                                                <h3 className="text-gray-600 dark:text-zinc-200 text-2xl font-medium">More Products from this Seller</h3>
+                                        }
                                         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                                             {
                                                 itemsSameSeller.map(product => {
