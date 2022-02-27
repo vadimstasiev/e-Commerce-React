@@ -42,7 +42,7 @@ const AddMoreItemsIconMenu = props => {
                               ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200"
                               : "text-zinc-700 dark:text-zinc-100"
                             } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
-                            onClick={() => navigate('/NewItemPost')}
+                            onClick={() => navigate('/ItemCreate')}
                           >
                             Publish an item
                           </div>
@@ -203,7 +203,7 @@ const Header = () => {
           <div className={`order-1 flex transform fixed transition-all duration-1000 md:hidden ${isActive ? "z-10":"z-0"}`}>
             <div className={isActive ? activeSide:hiddenSide}>
               <ul className="md:flex text-base text-zinc-700 pt-4 pt-14">
-                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/NewItemPost')}>Publish an Item</a></li>
+                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/ItemCreate')}>Publish an Item</a></li>
                 <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/Browse')}>Browse</a></li>
                 <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/FAQ')}>FAQ</a></li>
                 {

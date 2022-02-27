@@ -8,7 +8,7 @@ import ResetPassword from './pages/Auth/ResetPassword';
 import NotFound from './pages/NotFound';
 import SignOut from './pages/Auth/SignOut';
 import AccountSettings from './pages/AccountSettings';
-import NewItemPost from './pages/Item/NewItemPost';
+import ItemCreate from './pages/Item/ItemCreate';
 import ViewItem from './pages/Item/ViewItem';
 
 const AppRouter = () => {
@@ -24,8 +24,11 @@ const AppRouter = () => {
       <Route exact path='/AccountSettings' element={<PrivateRoute from="/AccountSettings"/>}>
         <Route exact path='/AccountSettings' element={<AccountSettings/>}/>
       </Route>
-      <Route exact path='/NewItemPost' element={<PrivateRoute from="/NewItemPost"/>}>
-        <Route exact path='/NewItemPost' element={<NewItemPost/>}/>
+      <Route exact path='/ItemCreate' element={<PrivateRoute from="/ItemCreate"/>}>
+        <Route exact path='/ItemCreate' element={<ItemCreate/>}/>
+      </Route>
+      <Route path='/ItemCreate/edit/:id' element={<PrivateRoute from="/ItemCreate/edit/:id"/>}>
+        <Route path='/ItemCreate/edit/:id' element={<ItemCreate/>}/>
       </Route>
       <Route path="*" element={<NotFound/>}/>
     </Routes>

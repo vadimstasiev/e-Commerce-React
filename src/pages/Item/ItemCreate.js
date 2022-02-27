@@ -18,20 +18,29 @@ import {
     collection,
     where,
     addDoc,
+    doc, 
+    getDoc, 
+    setDoc
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 import * as geofire from 'geofire-common';
+import withRouter from '../../Components/hooks/withRouter';
+import Loading from '../Auth/Loading';
 
 const storage = getStorage();
 
-const NewItemPost = () => {
+const ItemCreate = (props) => {
+    const requestedItemId = props.router.params.id
     const navigate = useNavigate()
     const [user, loadingUser, error] = useAuthState(auth);
+    const [isEditingItem, setEditingItem] = useState(false);
+    const [currentEditDocId, setCurrentEditDocId] = useState("");
     const [itemName, setItemName] = useState("");
     const [postcode, setPostcode] = useState("");
+    const [formattedAddress, setFormattedAddress] = useState("");
     const [coordinates, setCoordinates] = useState({});
     const [geoHash, setGeoHash] = useState("");
     const [itemDescription, setItemDescription] = useState("");
@@ -55,6 +64,7 @@ const NewItemPost = () => {
                 
                 const lat = result[0].geometry.location.lat()
                 const lng = result[0].geometry.location.lng()
+                setFormattedAddress(result[0].formatted_address)
 
                 setCoordinates({lat: result[0].geometry.location.lat(), lng: result[0].geometry.location.lng()})
 
@@ -108,22 +118,87 @@ const NewItemPost = () => {
             itemName.length>0 &&
             postcodeInputStatus==="success" &&
             itemDescription.length>0 &&
-            images.length>0 &&
-            uploadingImagesStatus==="uploaded"
+            (images.length>0 || isEditingItem) &&
+            (uploadingImagesStatus==="uploaded" || uploadingImagesStatus==="alreadyUploaded")
         ) {
-            await addDoc(collection(db, "items"), {
-                userUid: user.uid,
-                name: itemName,
-                postcode,
-                coordinates,
-                geoHash,
-                itemDescription,
-                price,
-                imagesUploadedUrl
-            }).then(navigate("/"))
+            if(isEditingItem){
+                await setDoc(doc(collection(db, "items"), currentEditDocId), {
+                    userUid: user.uid,
+                    name: itemName,
+                    postcode,
+                    coordinates,
+                    geoHash,
+                    itemDescription,
+                    price,
+                    imagesUploadedUrl
+                })
+                .then(navigate("/"))
+                .catch(error => {
+                    alert(error)
+                })
+            } else {
+                await addDoc(collection(db, "items"), {
+                    userUid: user.uid,
+                    name: itemName,
+                    postcode,
+                    coordinates,
+                    geoHash,
+                    itemDescription,
+                    price,
+                    imagesUploadedUrl
+                })
+                .then(navigate("/"))
+                .catch(error => {
+                    alert(error)
+                })
+            }
         } else {
-            console.log("fill all the boxes and wait for upload")
+            alert("fill all the boxes and wait for upload")
         }
+    }
+
+    // Edit existing item 
+
+    const fetchItem = async () => {
+        // console.log(requestedItemId)
+        await getDoc(doc(db, "items", requestedItemId))
+        .then(data => {
+            const actualData = data.data()
+            if(actualData){
+                setEditingItem(true)
+                setItemName(actualData.name)
+                validatePostCode(actualData.postcode)
+                // setCoordinates
+                // setGeoHash
+                setItemDescription(actualData.itemDescription)
+                setPrice(actualData.price)
+                // setImages()
+                setImagesLocalUrl(actualData.imagesUploadedUrl)
+                setImagesUploadedUrl(actualData.imagesUploadedUrl)
+                setUploadingImagesStatus("alreadyUploaded")
+                setCurrentEditDocId(data.id)
+            } else {
+                navigate("/Not-Found")
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+            navigate("/Not-Found")
+        })
+    }
+
+    useEffect(() => {
+        fetchItem()
+    }, [props.router.params]);
+
+    // useEffect(() => {
+    //   console.log(itemsSameSeller)    
+    //   console.log(item)    
+    // }, [itemsSameSeller, item]);
+
+    
+    if(!isEditingItem && props.router.params.id) {
+        return <Loading/>
     }
 
     return (
@@ -134,13 +209,15 @@ const NewItemPost = () => {
                 <div className="grid bg-white dark:bg-zinc-900 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                     <div className="grid grid-cols-1 mt-5 mx-7">
                         <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Item Title</label>
-                        <input onChange={e => setItemName(e.target.value)} className="py-2 px-3 rounded-lg border-2 border-gray-300 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="Please enter a descriptive title" />
+                        <input value={itemName} onChange={e => setItemName(e.target.value)} className="py-2 px-3 rounded-lg border-2 border-gray-300 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent" type="text" placeholder="Please enter a descriptive title" />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+                    <div className="grid grid-cols-1 gap-5 md:gap-8 mt-5 mx-7">
                         <div className="grid grid-cols-1">
                             <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Postcode Location (UK Only)</label>
-                            <input onChange={e=>{
+                            <input 
+                            defaultValue={postcode}
+                            onChange={e=>{
                                 const value = e.target.value
                                 let re_no_space = new RegExp(`^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))[0-9][A-Za-z]{2})$`)
                                 let re_with_space = new RegExp(`^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$`)
@@ -173,7 +250,7 @@ const NewItemPost = () => {
                                     postcodeInputStatus==="success" &&
                                         <>
                                             <CheckOutlined className="inline-block text-green-400 dark:text-green-600 pb-[6px] text-xs text-light font-semibold mb-1 py-2 pl-2"/>
-                                            <div className='inline-block dark:text-zinc-200 hover:text-black dark:hover:text-white px-1 pt-2'>Valid</div>
+                                            <div className='inline-block dark:text-zinc-200 hover:text-black dark:hover:text-white px-1 pt-2'>{formattedAddress||"Valid"}</div>
                                         </>
                                 }
                                 
@@ -189,6 +266,7 @@ const NewItemPost = () => {
                         id="exampleFormControlTextarea1"
                         rows="10"
                         placeholder="Please write an elaborate description."
+                        value={itemDescription}
                         onChange={e => setItemDescription(e.target.value)}
                         ></textarea>
                     </div>
@@ -205,7 +283,9 @@ const NewItemPost = () => {
                         <div className="grid grid-cols-1">
                             <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Price</label>
                             <PriceInput
+                                value={price}
                                 className="py-2 px-3 rounded-lg border-2 border-gray-300 dark:bg-zinc-900 dark:border-zinc-500 text-zinc-700 dark:text-white mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+                                prefix={"£ "}
                                 onChange={value => setPrice(value)}    
                             />
                         </div>
@@ -221,6 +301,9 @@ const NewItemPost = () => {
                             </div>
                             <div className="text-green-500">
                                 {uploadingImagesStatus==="uploaded"&&" ( Uploaded Successfully! )"}
+                            </div>
+                            <div className="text-green-500">
+                                {uploadingImagesStatus==="alreadyUploaded"&&""}
                             </div>
                         </label>
                         <div className='flex items-center justify-center w-full'>
@@ -253,7 +336,7 @@ const NewItemPost = () => {
 
                     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
                         <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => navigate('/')} >Cancel</button>
-                        <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => submit()}>Create</button>
+                        <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => submit()}>{isEditingItem?"Update":"Create"}</button>
                     </div>
                 </div>
             </div>
@@ -262,4 +345,4 @@ const NewItemPost = () => {
     )
 }
 
-export default NewItemPost;
+export default withRouter(ItemCreate);
