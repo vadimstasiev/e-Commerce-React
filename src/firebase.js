@@ -58,7 +58,7 @@ const signInWithGoogle = async () => {
   }
 };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (name, email, password, extra={}) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
@@ -67,6 +67,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       name,
       authProvider: "local",
       email,
+      ...extra
     }).catch(err=>{
         return err
     })
