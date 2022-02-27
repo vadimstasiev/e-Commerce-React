@@ -5,7 +5,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import SvgBackground from "../../Components/SvgBackground";
 import {FixedToggle} from "../../Components/ThemeToggle";
 import { useNavigate, useLocation } from "react-router-dom";
-import { SyncOutlined, CloseOutlined, CheckOutlined  } from '@ant-design/icons';
+import { Modal, Button } from 'antd';
+import { SyncOutlined, CloseOutlined, CheckOutlined, ExclamationCircleOutlined  } from '@ant-design/icons';
 import PriceInput from '../../Components/Input/PriceInput';
 import usePlacesAutocomplete, {
     getGeocode,
@@ -20,7 +21,8 @@ import {
     addDoc,
     doc, 
     getDoc, 
-    setDoc
+    setDoc, 
+    deleteDoc 
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
@@ -29,6 +31,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import * as geofire from 'geofire-common';
 import withRouter from '../../Components/hooks/withRouter';
 import Loading from '../Auth/Loading';
+import DangerConfirm from '../../Components/DangerConfirm';
 
 const storage = getStorage();
 
@@ -52,6 +55,8 @@ const ItemCreate = (props) => {
     const [postcodeInputStatus, setPostcodeInputStatus] = useState("none");
     // none, uploading, uploaded
     const [uploadingImagesStatus, setUploadingImagesStatus] = useState("none");
+
+    const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
 
 
     const validatePostCode = postcode => {
@@ -157,6 +162,11 @@ const ItemCreate = (props) => {
         }
     }
 
+    const submitDelete = async () => {
+        await deleteDoc(doc(collection(db, "items"), currentEditDocId))
+        navigate("/")
+    }
+
     // Edit existing item 
 
     const fetchItem = async () => {
@@ -205,6 +215,7 @@ const ItemCreate = (props) => {
         <Background>
         <SvgBackground>
             <FixedToggle/>
+            
             <div className="flex my-4 items-center justify-center">
                 <div className="grid bg-white dark:bg-zinc-900 rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                     <div className="grid grid-cols-1 mt-5 mx-7">
@@ -335,6 +346,24 @@ const ItemCreate = (props) => {
                     </div>
 
                     <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+                    {/* h-10 px-5 m-2 text-red-100 transition-colors duration-150 bg-red-700 rounded-lg focus:shadow-outline hover:bg-red-800 */}
+                        {
+                            isEditingItem&& 
+                            <>
+                                <button className='w-auto bg-red-700 hover:bg-red-800 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => {
+                                    setDeleteModalVisible(true)
+                                }} >Delete</button>
+                                <DangerConfirm isVisible={isDeleteModalVisible}
+                                    setVisible={setDeleteModalVisible}
+                                    title={"Delete Product"}
+                                    content={"Are you sure you want to remove this item?"}
+                                    ok={"Remove"}
+                                    cancel={"Cancel"}
+                                    onOk={submitDelete}
+                                />
+                            </>
+                        }
+                        
                         <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => navigate('/')} >Cancel</button>
                         <button className='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' onClick={() => submit()}>{isEditingItem?"Update":"Create"}</button>
                     </div>
