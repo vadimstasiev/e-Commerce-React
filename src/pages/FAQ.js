@@ -76,20 +76,8 @@ const FAQ = () => {
                                     </dd>
                                 </div>
                             </div>
-                            <div className="lg:w-1/2">
-                                <div className="question-and-answer select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group">
-                                    <dt className="question">
-                                        <div className="flex justify-between">
-                                            <div className="text-zinc-800 dark:text-zinc-100 font-semibold ">
-                                                But.. but.. can I have some help with code?
-                                            </div>
-                                        </div>
-                                    </dt>
-                                    <dd className="answer mt-2 leading-snug text-gray-700 dark:text-zinc-100 ">
-                                        No, I'm busy. :-)
-                                    </dd>
-                                </div>
-                            </div>
+                            
+                            
                             <div className="lg:w-1/2">
                                 <div className="question-and-answer select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group">
                                     <dt className="question">
@@ -104,6 +92,35 @@ const FAQ = () => {
                                     </dd>
                                 </div>
                             </div>
+                            <div className="lg:w-1/3">
+                                <div className="question-and-answer select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group">
+                                    <dt className="question">
+                                        <div className="flex justify-between">
+                                            <div className="text-zinc-800 dark:text-zinc-100 font-semibold ">
+                                                But.. but.. can I have some help with code?
+                                            </div>
+                                        </div>
+                                    </dt>
+                                    <dd className="answer mt-2 leading-snug text-gray-700 dark:text-zinc-100 ">
+                                        No, I'm busy. :-)
+                                    </dd>
+                                </div>
+                            </div>
+                            <div className="">
+                                <div className="question-and-answer select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group">
+                                    <dt className="question">
+                                        <div className="flex justify-between">
+                                            <div className="text-zinc-800 dark:text-zinc-100 font-semibold ">
+                                                Why did you implement a darkmode?
+                                            </div>
+                                        </div>
+                                    </dt>
+                                    <dd className="answer mt-2 leading-snug text-gray-700 dark:text-zinc-100 ">
+                                        Because my EYES BURN. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    </dd>
+                                </div>
+                            </div>
+                            
                         </dl>
                     </div>
                 </div>
