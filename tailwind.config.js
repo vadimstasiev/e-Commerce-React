@@ -20,14 +20,6 @@ module.exports = {
       '2xl': '1680px',
       // => @media (min-width: 1680px) { ... }
     },
-    extend: {
-      colors: {
-        primary: "#03045e",
-        blue: {
-          450: '#0077b6'
-        }
-      }
-    },
   },
   plugins: [],
 }

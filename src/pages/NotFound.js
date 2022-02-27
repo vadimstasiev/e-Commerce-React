@@ -23,8 +23,8 @@ const NotFound = () => {
                     />
                     <Link to='/'>
                             <button type="button" className="mt-5 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-zinc-900 
-                                bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-blue-700 focus:z-10 focus:ring-2
-                                focus:ring-blue-700 focus:text-blue-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 
+                                bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-gray-700 focus:z-10 focus:ring-2
+                                focus:ring-gray-700 focus:text-gray-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 
                                 dark:hover:text-white dark:hover:bg-zinc-700"
                             >
                                {"Back Home"}

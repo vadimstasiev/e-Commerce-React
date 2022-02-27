@@ -52,8 +52,8 @@ const SignIn = (props) => {
             />
             <Link to='/SignIn'>
                     <button type="button" className="mt-5 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-zinc-900 
-                        bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-blue-700 focus:z-10 focus:ring-2
-                        focus:ring-blue-700 focus:text-blue-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 
+                        bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-gray-700 focus:z-10 focus:ring-2
+                        focus:ring-gray-700 focus:text-gray-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 
                         dark:hover:text-white dark:hover:bg-zinc-700"
                     >
                       {"Back to Sign In"}
@@ -77,13 +77,13 @@ const SignIn = (props) => {
                       : null}
                     </div>
                     <div className="flex items-center justify-between">
-                      <button className="bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+                      <button className="bg-gray-500 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
                       onClick={submitEmail}>
                           Send Email
                       </button>
                       
-                      <div className="inline-block align-baseline font-bold text-sm ml-20 text-blue-500">
-                        <div className="hover:text-blue-800 cursor-pointer" onClick={() => navigate('/SignIn', {from})}>Sign In, instead.</div>
+                      <div className="inline-block align-baseline font-bold text-sm ml-20 text-gray-500">
+                        <div className="hover:text-gray-800 cursor-pointer" onClick={() => navigate('/SignIn', {from})}>Sign In, instead.</div>
                       </div>
                     </div>
                   </div>

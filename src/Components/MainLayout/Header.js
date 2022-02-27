@@ -273,7 +273,7 @@ const Header = () => {
 
               <AddMoreItemsIconMenu customClass="mr-4 ml-4 pt-0.5 inline-block " >
                 <span className="rounded-md shadow-sm">
-                  <div className=" inline-flex justify-center w-full px-4  text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white dark:bg-zinc-900 border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800">
+                  <div className=" inline-flex justify-center w-full px-4  text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white dark:bg-zinc-900 border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none active:bg-gray-50 active:text-gray-800">
                     <AppstoreAddOutlined className="pt-0.5 text-lg dark:text-zinc-200 hover:text-black dark:hover:text-white"/>
                     <div className="py-2">
 
@@ -295,7 +295,7 @@ const Header = () => {
               
               <ProfileIconMenu customClass="mr-4 pt-0.5 inline-block" >
               <span className="rounded-md shadow-sm">
-                  <div className=" inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white dark:bg-zinc-900 border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800">
+                  <div className=" inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white dark:bg-zinc-900 border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-gray active:bg-gray-50 active:text-gray-800">
                     <svg className="fill-current dark:text-zinc-200 hover:text-black dark:hover:text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                       <circle fill="none" cx="12" cy="7" r="3" />
                       <path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
