@@ -171,7 +171,7 @@ const ViewItem = (props) => {
                                             <RightOutlined className='fill text-zinc-600 dark:text-zinc-200 text-2xl'/>
                                         </button>
                                     </div>
-                                    <div className='absolute bottom-2 items-center justify-center p-0 my-0 text-center border-0 right-2'>
+                                    <div className='absolute bottom-4 items-center justify-center p-0 my-0 text-center border-0 right-2'>
                                         <span className="text-zinc-600 dark:text-zinc-200 text-md mx-2 font-black bg-zinc-200/[.9] dark:bg-black/[.3] pt-0 pb-1 px-2 rounded-full">{`${currentImage} / ${item.imagesUploadedUrl.length-1}`} </span>
                                     </div>
                                 </div>

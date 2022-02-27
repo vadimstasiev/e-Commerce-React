@@ -10,7 +10,7 @@ const FAQ = () => {
         <NoiseBackground>
         <Background className={"dark:bg-transparent min-h-screen"}>
         <Header/>
-        <div className="mt-20 font-display">
+        <div className="my-40 font-display">
             <div className="">
                 <div>
                     <div className="opacity-75">
