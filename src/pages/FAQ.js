@@ -60,35 +60,19 @@ const FAQ = () => {
                         </svg>
                     </div>
                     <div>
-                        <div className="mx-auto text-center px-4 mt-12 text-2xl text-gray-900 font-semibold">Frequently Asked Questions</div>
+                        <div className="mx-auto text-center px-4 mt-12 text-2xl text-zinc-800 dark:text-zinc-100 font-black font-semibold">Frequently Asked Questions</div>
                         <dl className="mt-8 mx-auto max-w-screen-sm lg:max-w-screen-lg flex flex-col lg:flex-row lg:flex-wrap">
-                            <div className="lg:w-1/2">
+                            <div className="">
                                 <div className="question-and-answer select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group">
                                     <dt className="question">
                                         <div className="flex justify-between">
-                                            <div className="text-gray-800 font-semibold">
-                                            Do you accept Paypal?
-                                            </div>
-                                            <div>
-                                                <svg className="question-chevron group-hover:bg-gray-500 h-5 block text-gray-800 bg-gray-400 rounded-full p-1" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                                                    <g stroke="currentColor" stroke-width="1" fill-rule="evenodd">
-                                                    <g>
-                                                    <polygon points="9.29289322 12.9497475 10 13.6568542 15.6568542 8 14.2426407 6.58578644 10 10.8284271 5.75735931 6.58578644 4.34314575 8"></polygon>
-                                                    </g>
-                                                    </g>
-                                                </svg>
-                                                <svg className="question-chevron hidden group-hover:bg-gray-500 h-5 block text-gray-800 bg-gray-400 rounded-full p-1" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                                                    <g stroke="currentColor" stroke-width="1" fill-rule="evenodd">
-                                                    <g>
-                                                    <polygon points="10.7071068 7.05025253 10 6.34314575 4.34314575 12 5.75735931 13.4142136 10 9.17157288 14.2426407 13.4142136 15.6568542 12"></polygon>
-                                                    </g>
-                                                    </g>
-                                                </svg>
+                                            <div className="text-zinc-800 dark:text-zinc-100 font-semibold text-lg">
+                                            Is this a legitimate e-commerce website?
                                             </div>
                                         </div>
                                     </dt>
-                                    <dd className="answer hidden mt-2 leading-snug text-gray-700">
-                                        Yes, we do, along with AliPay, PayTM, and Payoneer.
+                                    <dd className="answer mt-2 leading-snug text-gray-700 dark:text-zinc-100">
+                                    This is a product that I made as part of my portfolio and for a university course assignment, and while it is functional to the extent that it is provided, I accept no responsibility for any data processed or stored, or how that data may be used against any specific user, or for anything else. Do with this what you will, but please don't abuse the requests because they are monthly capped, which means that if there is too much activity around here, things will stop working.
                                     </dd>
                                 </div>
                             </div>
@@ -96,29 +80,13 @@ const FAQ = () => {
                                 <div className="question-and-answer select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group">
                                     <dt className="question">
                                         <div className="flex justify-between">
-                                            <div className="text-gray-800 font-semibold">
-                                                What is your SLA Guarantee ?
-                                            </div>
-                                            <div>
-                                                <svg className="question-chevron group-hover:bg-gray-500 h-5 block text-gray-800 bg-gray-400 rounded-full p-1" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                                                    <g stroke="currentColor" stroke-width="1" fill-rule="evenodd">
-                                                    <g>
-                                                    <polygon points="9.29289322 12.9497475 10 13.6568542 15.6568542 8 14.2426407 6.58578644 10 10.8284271 5.75735931 6.58578644 4.34314575 8"></polygon>
-                                                    </g>
-                                                    </g>
-                                                </svg>
-                                                <svg className="question-chevron hidden group-hover:bg-gray-500 h-5 block text-gray-800 bg-gray-400 rounded-full p-1" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                                                    <g stroke="currentColor" stroke-width="1" fill-rule="evenodd">
-                                                    <g>
-                                                    <polygon points="10.7071068 7.05025253 10 6.34314575 4.34314575 12 5.75735931 13.4142136 10 9.17157288 14.2426407 13.4142136 15.6568542 12"></polygon>
-                                                    </g>
-                                                    </g>
-                                                </svg>
+                                            <div className="text-zinc-800 dark:text-zinc-100 font-semibold ">
+                                                But.. but.. can I have some help with code?
                                             </div>
                                         </div>
                                     </dt>
-                                    <dd className="answer hidden mt-2 leading-snug text-gray-700">
-                                        Yes, we do, along with AliPay, PayTM, and Payoneer.
+                                    <dd className="answer mt-2 leading-snug text-gray-700 dark:text-zinc-100 ">
+                                        No, I'm busy. :-)
                                     </dd>
                                 </div>
                             </div>
@@ -126,59 +94,13 @@ const FAQ = () => {
                                 <div className="question-and-answer select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group">
                                     <dt className="question">
                                         <div className="flex justify-between">
-                                            <div className="text-gray-800 font-semibold">
-                                                Are there more Tailwind templates ?
-                                            </div>
-                                            <div>
-                                                <svg className="question-chevron group-hover:bg-gray-500 h-5 block text-gray-800 bg-gray-400 rounded-full p-1" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                                                    <g stroke="currentColor" stroke-width="1" fill-rule="evenodd">
-                                                    <g>
-                                                    <polygon points="9.29289322 12.9497475 10 13.6568542 15.6568542 8 14.2426407 6.58578644 10 10.8284271 5.75735931 6.58578644 4.34314575 8"></polygon>
-                                                    </g>
-                                                    </g>
-                                                </svg>
-                                                <svg className="question-chevron hidden group-hover:bg-gray-500 h-5 block text-gray-800 bg-gray-400 rounded-full p-1" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                                                    <g stroke="currentColor" stroke-width="1" fill-rule="evenodd">
-                                                    <g>
-                                                    <polygon points="10.7071068 7.05025253 10 6.34314575 4.34314575 12 5.75735931 13.4142136 10 9.17157288 14.2426407 13.4142136 15.6568542 12"></polygon>
-                                                    </g>
-                                                    </g>
-                                                </svg>
+                                            <div className="text-zinc-800 dark:text-zinc-100 font-semibold text-md">
+                                                Where can I find the source code for this website?
                                             </div>
                                         </div>
                                     </dt>
-                                    <dd className="answer hidden mt-2 leading-snug text-gray-700">
-                                        Yes, we do, along with AliPay, PayTM, and Payoneer.
-                                    </dd>
-                                </div>
-                            </div>
-                            <div className="lg:w-1/2">
-                                <div className="question-and-answer select-none cursor-pointer border-2 mx-8 my-3 px-6 py-4 rounded-lg text-sm group">
-                                    <dt className="question">
-                                        <div className="flex justify-between">
-                                            <div className="text-gray-800 font-semibold">
-                                                Is this template free for commercial use ?
-                                            </div>
-                                            <div>
-                                                <svg className="question-chevron group-hover:bg-gray-500 h-5 block text-gray-800 bg-gray-400 rounded-full p-1" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                                                    <g stroke="currentColor" stroke-width="1" fill-rule="evenodd">
-                                                    <g>
-                                                    <polygon points="9.29289322 12.9497475 10 13.6568542 15.6568542 8 14.2426407 6.58578644 10 10.8284271 5.75735931 6.58578644 4.34314575 8"></polygon>
-                                                    </g>
-                                                    </g>
-                                                </svg>
-                                                <svg className="question-chevron hidden group-hover:bg-gray-500 h-5 block text-gray-800 bg-gray-400 rounded-full p-1" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                                                    <g stroke="currentColor" stroke-width="1" fill-rule="evenodd">
-                                                    <g>
-                                                    <polygon points="10.7071068 7.05025253 10 6.34314575 4.34314575 12 5.75735931 13.4142136 10 9.17157288 14.2426407 13.4142136 15.6568542 12"></polygon>
-                                                    </g>
-                                                    </g>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </dt>
-                                    <dd className="answer hidden mt-2 leading-snug text-gray-700">
-                                        Yes, we do, along with AliPay, PayTM, and Payoneer.
+                                    <dd className="answer mt-2 leading-snug text-gray-700 dark:text-zinc-100 ">
+                                    I'll probably make it available when I finish my university degree because I don't want to risk being accused of plagiarism. Be sure to check my <a className='text-blue-400' href='https://github.com/vadimstasiev'>GitHub</a> for that. You can find it here:  <a className='text-blue-400' href='https://github.com/vadimstasiev'>https://github.com/vadimstasiev</a>
                                     </dd>
                                 </div>
                             </div>
