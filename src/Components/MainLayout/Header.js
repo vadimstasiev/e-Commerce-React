@@ -6,6 +6,7 @@ import { Toggle } from "../ThemeToggle";
 import { logout } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { AppstoreAddOutlined } from '@ant-design/icons';
+import { ThemeContext } from "../ThemeContext";
 
 const AddMoreItemsIconMenu = props => {
   const { children, customClass } = props 
@@ -197,7 +198,7 @@ const ProfileIconMenu = props => {
 }
 
 const Header = () => {
-
+  const { theme, setTheme } = React.useContext(ThemeContext);
   const [isActive, setIsActive] = useState(false);
   const [user, loadingUser, error] = useAuthState(auth);
   const navigate = useNavigate()
@@ -215,6 +216,7 @@ const Header = () => {
           <div className={`order-1 flex transform fixed transition-all duration-1000 md:hidden ${isActive ? "z-10":"z-0"}`}>
             <div className={isActive ? activeSide:hiddenSide}>
               <ul className="md:flex text-base text-zinc-700 pt-4 pt-14">
+                <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>Toggle Theme</a></li>
                 <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/ItemCreate')}>Publish an Item</a></li>
                 <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/Browse')}>Browse</a></li>
                 <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/FAQ')}>FAQ</a></li>
@@ -223,6 +225,7 @@ const Header = () => {
                     <>
                       <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/AccountSettings')}>Account settings</a></li>
                       <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/Messages')}>Messages</a></li>
+                      <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/ViewPersonal')}>View Listed</a></li>
                       <li><a className="inline-block no-underline font-medium dark:text-zinc-200 dark:hover:text-white hover:underline dark:hover:no-underline py-2 px-4 cursor-pointer" onClick={() => navigate('/SignOut')}>Sign Out</a></li>
 
                     </>
