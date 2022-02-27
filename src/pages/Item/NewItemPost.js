@@ -23,6 +23,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
+import * as geofire from 'geofire-common';
+
 const storage = getStorage();
 
 const NewItemPost = () => {
@@ -30,13 +32,15 @@ const NewItemPost = () => {
     const [user, loadingUser, error] = useAuthState(auth);
     const [itemName, setItemName] = useState("");
     const [postcode, setPostcode] = useState("");
+    const [coordinates, setCoordinates] = useState({});
+    const [geoHash, setGeoHash] = useState("");
     const [itemDescription, setItemDescription] = useState("");
     const [price, setPrice] = useState("");
     const [images, setImages] = useState([]);
     const [imagesLocalUrl, setImagesLocalUrl] = useState([]);
     const [imagesUploadedUrl, setImagesUploadedUrl] = useState([]);
     // none, loading, error, success
-    const [postcodeInputStatus, setPostcodeInputStatus] = useState("none"); 
+    const [postcodeInputStatus, setPostcodeInputStatus] = useState("none");
     // none, uploading, uploaded
     const [uploadingImagesStatus, setUploadingImagesStatus] = useState("none");
 
@@ -46,8 +50,23 @@ const NewItemPost = () => {
         const isValid = false
         getGeocode({ address:postcode })
         .then((result)=>{
-            setPostcode(postcode)
-            setPostcodeInputStatus("success")
+            if(result){
+                setPostcode(postcode)
+                
+                const lat = result[0].geometry.location.lat()
+                const lng = result[0].geometry.location.lng()
+
+                setCoordinates({lat: result[0].geometry.location.lat(), lng: result[0].geometry.location.lng()})
+
+                // Compute the GeoHash for a lat/lng point
+                const hash = geofire.geohashForLocation([lat, lng]);
+
+                setGeoHash(hash)
+
+                setPostcodeInputStatus("success")
+            } else {
+                setPostcodeInputStatus("error")
+            }
         })
         .catch(e => {
             setPostcodeInputStatus("error")
@@ -96,6 +115,8 @@ const NewItemPost = () => {
                 userUid: user.uid,
                 name: itemName,
                 postcode,
+                coordinates,
+                geoHash,
                 itemDescription,
                 price,
                 imagesUploadedUrl
