@@ -11,6 +11,7 @@ import FavouriteSidePanel from '../../Components/FavouriteSidePanel'
 import ItemCard from './ItemCard'
 import Loading from "../Auth/Loading";
 import OnScreenRender from "../../Components/OnScreenRender";
+import { EditOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 
 
@@ -22,6 +23,39 @@ const ViewItem = (props) => {
     const [itemsSameSeller, setItemsSameSeller] = useState([]);
     const [itemsSimilar, setItemsSimilar] = useState([]);
     const [item, setItem] = useState();
+
+    const [currentImage, setCurrentImage] = useState(0);
+
+    const nextImage = async (e) => {
+        e.stopPropagation()
+        const current = currentImage
+        if(item.imagesUploadedUrl[current+1]){
+            await preloadImage(item.imagesUploadedUrl[current+1])
+            setCurrentImage(current+1)
+        }
+    }
+
+    const previousImage = async (e) => {
+        e.stopPropagation()
+        const current = currentImage
+        if(item.imagesUploadedUrl[current-1]){
+            await preloadImage(item.imagesUploadedUrl[current-1])
+            setCurrentImage(current-1)
+        }
+    }
+
+    const preloadImage = (src) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = function() {
+            resolve(img)
+          }
+          img.onerror = img.onabort = function() {
+            reject(src)
+          }
+          img.src = src
+        })
+    }
   
     const fetchItemsSameSeller = async (userUid, itemId) => {
         setItemsSameSeller([])
@@ -108,8 +142,24 @@ const ViewItem = (props) => {
                     <main className="my-8">
                         <div className="container mx-auto px-6">
                             <div className="xl:flex ">
-                                <div className="">
-                                    <img className="h-full w-full rounded-md object-cover max-w-lg mx-auto" src={item.imagesUploadedUrl?item.imagesUploadedUrl[0]:""} alt="product photo"/>
+                                <div className="relative">
+                                    <img className="h-full w-full rounded-md object-cover max-w-lg mx-auto" src={item.imagesUploadedUrl?item.imagesUploadedUrl[currentImage]:""} alt="product photo"/>
+                                    <div className='absolute top-0 bottom-0 flex items-center justify-center p-0 my-0 text-center border-0 left-2'>
+                                        <button
+                                            className="rounded-full px-2 pb-2 xl:pb-3 xl:pt-1 xl:px-3 bg-zinc-200/[.9] dark:bg-black/[.3]"
+                                            onClick={previousImage}
+                                        >
+                                            <LeftOutlined className='fill text-zinc-600 dark:text-zinc-200 text-2xl'/>
+                                        </button>
+                                    </div>
+                                    <div className='absolute top-0 bottom-0 flex items-center justify-center p-0 my-0 text-center border-0 right-2'>
+                                        <button
+                                            className="rounded-full px-2 pb-2 xl:pb-3 xl:pt-1 xl:px-3 bg-zinc-200/[.9] dark:bg-black/[.3]"
+                                            onClick={nextImage}
+                                        >
+                                            <RightOutlined className='fill text-zinc-600 dark:text-zinc-200 text-2xl'/>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="w-full  mx-auto mt-5 xl:ml-8 md:mt-4  xl:w-1/2">
                                     <h3 className="text-gray-600 dark:text-zinc-100 uppercase text-lg">{item.name}</h3>
