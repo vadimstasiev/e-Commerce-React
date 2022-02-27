@@ -10,6 +10,7 @@ import SignOut from './pages/Auth/SignOut';
 import AccountSettings from './pages/AccountSettings';
 import ItemCreate from './pages/Item/ItemCreate';
 import ViewItem from './pages/Item/ViewItem';
+import ViewPersonalListings from './pages/Item/ViewPersonalListings';
 
 const AppRouter = () => {
   return <Router>
@@ -29,6 +30,9 @@ const AppRouter = () => {
       </Route>
       <Route path='/ItemCreate/edit/:id' element={<PrivateRoute from="/ItemCreate/edit/:id"/>}>
         <Route path='/ItemCreate/edit/:id' element={<ItemCreate/>}/>
+      </Route>
+      <Route path='/ViewPersonal' element={<PrivateRoute from="/ViewPersonal"/>}>
+        <Route path='/ViewPersonal' element={<ViewPersonalListings/>}/>
       </Route>
       <Route path="*" element={<NotFound/>}/>
     </Routes>
