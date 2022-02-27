@@ -118,6 +118,7 @@ const ViewItem = (props) => {
 
     useEffect(() => {
         setIsLoaded(false)
+        setCurrentImage(0)
         fetchItem()
         
     }, [props.router.params]);
