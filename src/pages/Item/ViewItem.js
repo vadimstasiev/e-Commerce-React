@@ -102,7 +102,7 @@ const ViewItem = (props) => {
     }
 
     const fetchItem = async () => {
-        const userUid = user.uid
+        const userUid = user?.uid || ""
         setItemsSameSeller([])
         // console.log(requestedItemId)
         await getDoc(doc(db, "items", requestedItemId))

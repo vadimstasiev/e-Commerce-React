@@ -50,12 +50,12 @@ const SignIn = () => {
         <FixedToggle />
         <div className="grid place-items-center pt-40">
             <form className="bg-white dark:bg-zinc-900 shadow-md rounded px-8 pt-6 pb-8 mb-4 border-zinc-200 border-2">
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <button className="w-full bg-gray-500 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
-                    onClick={signInWithGoogle}>
-                        Login with Google
+                    onClick={()=>signInWithGoogle().then(()=>navigate("/AccountSettings"))}>
+                        Sign In with Google
                   </button>
-                </div>
+                </div> */}
                 <div className="mb-4">
                   <label className="block text-zinc-700 dark:text-zinc-100 text-sm font-bold mb-2">
                       Email
