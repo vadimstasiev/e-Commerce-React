@@ -103,24 +103,24 @@ const ViewItem = (props) => {
                                         </div>
                                     </div>
                                 :
-                                            <div
-                                            className="flex flex-col items-center justify-center md:py-24 lg:py-60"
-                                            >
-                                            <p
-                                                className="mb-2 text-2xl font-bold text-center text-gray-600 dark:text-zinc-50  font-black md:text-3xl"
-                                            >
-                                                There is nothing here!
-                                            </p>
-                                            <p className="mb-8 text-center text-gray-600 dark:text-zinc-50 md:text-lg">
-                                                You have not yet listed anything... Have something to sell?
-                                            </p>
-                                            <a
-                                                onClick={()=>navigate("/ItemCreate")}
-                                                className="px-6 py-2 text-sm font-semibold text-gray-800 bg-zinc-100 rounded-md"
-                                                > Publish an item</a
-                                            >
-                                            </div>
-                            }
+                                    <div
+                                        className="flex flex-col items-center justify-center md:py-24 lg:py-60"
+                                    >
+                                        <p
+                                            className="mb-2 text-2xl font-bold text-center text-gray-600 dark:text-zinc-50  font-black md:text-3xl"
+                                        >
+                                            There is nothing here!
+                                        </p>
+                                        <p className="mb-8 text-center text-gray-600 dark:text-zinc-50 md:text-lg">
+                                            You have not yet listed anything... Have something to sell?
+                                        </p>
+                                        <a
+                                            onClick={()=>navigate("/ItemCreate")}
+                                            className="px-6 py-2 text-sm font-semibold text-gray-800 bg-zinc-100 rounded-md cursor-pointer"
+                                            > Publish an item</a
+                                        >
+                                    </div>
+                    }
                         </div>
                     </main>
                     <Footer/>
