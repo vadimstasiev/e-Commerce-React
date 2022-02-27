@@ -11,6 +11,7 @@ import AccountSettings from './pages/AccountSettings';
 import ItemCreate from './pages/Item/ItemCreate';
 import ViewItem from './pages/Item/ViewItem';
 import ViewPersonalListings from './pages/Item/ViewPersonalListings';
+import FAQ from './pages/FAQ';
 
 const AppRouter = () => {
   return <Router>
@@ -20,6 +21,7 @@ const AppRouter = () => {
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/SignOut" element={<SignOut/>}/>
       <Route exact path="/ResetPassword" element={<ResetPassword/>}/>
+      <Route exact path="/FAQ" element={<FAQ/>}/>
       <Route path="/item/:id" element={<ViewItem/>}/>
       {/* Private Route is only accessible when a user is logged in */}
       <Route exact path='/AccountSettings' element={<PrivateRoute from="/AccountSettings"/>}>
