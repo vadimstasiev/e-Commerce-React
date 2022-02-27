@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { EditOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -8,14 +8,48 @@ const ItemCard = ({product}) => {
     const navigate = useNavigate()
     const [user, loadingUser, error] = useAuthState(auth);
     const userUid = user?.uid||""
+    const [currentImage, setCurrentImage] = useState(0);
+
+    const [isControlsVisible, setControlsVisible] = useState(false);
+
+    const nextImage = async (e) => {
+        e.stopPropagation()
+        const current = currentImage
+        if(product.imagesUploadedUrl[current+1]){
+            await preloadImage(product.imagesUploadedUrl[current+1])
+            setCurrentImage(current+1)
+        }
+    }
+
+    const previousImage = async (e) => {
+        e.stopPropagation()
+        const current = currentImage
+        if(product.imagesUploadedUrl[current-1]){
+            await preloadImage(product.imagesUploadedUrl[current-1])
+            setCurrentImage(current-1)
+        }
+    }
+
+    const preloadImage = (src) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = function() {
+            resolve(img)
+          }
+          img.onerror = img.onabort = function() {
+            reject(src)
+          }
+          img.src = src
+        })
+    }
 
     return (
-        <div onClick={() => navigate(`/item/${product.id}`)} className="z-0 w-full max-w-sm mx-auto rounded-md overflow-hidden dark:bg-black/[.3] relative cursor-pointer shadow-lg hover:shadow-xl dark:shadow-md dark:hover:shadow-xl">
+        <div onMouseOver={()=>{setControlsVisible(true)}} onMouseLeave={()=>{setControlsVisible(false)}} onClick={() => navigate(`/item/${product.id}`)} className="z-0 w-full max-w-sm mx-auto rounded-md overflow-hidden dark:bg-black/[.3] relative cursor-pointer shadow-lg hover:shadow-xl dark:shadow-md dark:hover:shadow-xl">
             <div id="carouselDarkVariant"
             className="carousel slide carousel-fade carousel-dark relative">
                 <div 
                     className="flex items-end justify-end h-56 w-full bg-cover bg-center"
-                    style={{backgroundImage: `url("${product.imagesUploadedUrl[0]}")`}}   
+                    style={{backgroundImage: `url("${product.imagesUploadedUrl[currentImage]}")`}}   
                 >
                 {
                     userUid===product.userUid?
@@ -46,18 +80,27 @@ const ItemCard = ({product}) => {
                 }
                     
                 </div>
-
-                <button
-                    className="absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 left-2"
-                >
-                    <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                    <span className="visually-hidden"><LeftOutlined/></span>
-                </button>
-                <button
-                    className="absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 right-2"
-                >
-                    <span className="visually-hidden"><RightOutlined/></span>
-                </button>
+                {
+                    isControlsVisible&&
+                    <>  
+                        <div className='absolute top-0 bottom-0 flex items-center justify-center p-0 my-0 text-center border-0 left-2'>
+                            <button
+                                className="rounded-full px-2 pb-2 xl:pb-3 xl:pt-1 xl:px-3 bg-zinc-200/[.9] dark:bg-black/[.3]"
+                                onClick={previousImage}
+                            >
+                                <LeftOutlined className='fill text-zinc-600 dark:text-zinc-200 text-2xl'/>
+                            </button>
+                        </div>
+                        <div className='absolute top-0 bottom-0 flex items-center justify-center p-0 my-0 text-center border-0 right-2'>
+                            <button
+                                className="rounded-full px-2 pb-2 xl:pb-3 xl:pt-1 xl:px-3 bg-zinc-200/[.9] dark:bg-black/[.3]"
+                                onClick={nextImage}
+                            >
+                                <RightOutlined className='fill text-zinc-600 dark:text-zinc-200 text-2xl'/>
+                            </button>
+                        </div>
+                    </>
+                }
             </div>
             
             <div className="text-gray-700 dark:text-zinc-100 pb-10 px-5 py-3 ">
