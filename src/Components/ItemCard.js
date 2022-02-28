@@ -49,13 +49,13 @@ const ItemCard = ({product}) => {
             <div id="carouselDarkVariant"
             className="carousel slide carousel-fade carousel-dark relative">
                 <div 
-                    className="flex items-end justify-end h-56 w-full bg-cover bg-center"
+                    className="flex items-end justify-end h-56 w-full bg-cover bg-center z-3"
                     style={{backgroundImage: `url("${product.imagesUploadedUrl[currentImage]}")`}}   
                 >
                 {
                     userUid===product.userUid?
                         <button 
-                            className="p-2 rounded-full bg-gray-200 dark:border-2 dark:border-zinc-300 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-white mx-5 -mb-4 focus:outline-none "
+                            className="z-50 p-2 rounded-full bg-gray-200 dark:border-2 dark:border-zinc-300 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-white mx-5 -mb-4 focus:outline-none "
                             onClick={(e)=> {
                                 e.stopPropagation()
                                 navigate(`/ItemCreate/edit/${product.id}`)
@@ -68,7 +68,7 @@ const ItemCard = ({product}) => {
                         </button>
                     :
                         <button
-                            className="p-2 rounded-full bg-gray-200 dark:border-2 dark:border-zinc-300 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-white mx-5 -mb-4 focus:outline-none "
+                            className="z-50 p-2 rounded-full bg-gray-200 dark:border-2 dark:border-zinc-300 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-white mx-5 -mb-4 focus:outline-none "
                             onClick={(e)=> {
                                 e.stopPropagation()
                                 // add favourite
