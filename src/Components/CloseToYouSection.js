@@ -4,7 +4,7 @@ import Header from '../Components/MainLayout/Header';
 import Background from '../Components/Background';
 import { useNavigate } from "react-router-dom";
 import { db, auth } from '../firebase';
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc, orderBy, startAt, endAt, query } from 'firebase/firestore';
 import NoiseBackground from '../Components/NoiseBackground';
 import FavouriteSidePanel from '../Components/FavouriteSidePanel';
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,83 +15,87 @@ const CloseToYouSection = (props) => {
     const [user, loadingUser, error] = useAuthState(auth);
     const navigate = useNavigate()
     const [items, setItems] = useState([]);
-    const [name, setName] = useState("");
-    const [userGeohash, setUserGeohash] = useState("");
+    // const [userPostcode, setUserPostcode] = useState("");
+    // const [userCoordinates, setUserCoordinates] = useState([]);
+    // const [userGeohash, setUserGeohash] = useState("");
 
-    //////
+    const fetchItemsByDistance = (coordinates) => {
+        //////
 
-    // // Find cities within 50km of London
-    // const center = [51.5074, 0.1278];
-    // const radiusInM = 50 * 1000;
+        // // Find cities within 50km of London
+        const radiusInM = 50 * 1000;
 
-    // // Each item in 'bounds' represents a startAt/endAt pair. We have to issue
-    // // a separate query for each pair. There can be up to 9 pairs of bounds
-    // // depending on overlap, but in most cases there are 4.
-    // const bounds = geofire.geohashQueryBounds(center, radiusInM);
-    // const promises = [];
-    // for (const b of bounds) {
-    //   const q = db.collection('cities')
-    //     .orderBy('geohash')
-    //     .startAt(b[0])
-    //     .endAt(b[1]);
+        // Each item in 'bounds' represents a startAt/endAt pair. We have to issue
+        // a separate query for each pair. There can be up to 9 pairs of bounds
+        // depending on overlap, but in most cases there are 4.
+        const bounds = geofire.geohashQueryBounds(coordinates, radiusInM);
+        const promises = [];
+        for (const b of bounds) {
+            const q = query(collection(db, "items"), orderBy('geoHash'), startAt(b[0]), endAt(b[1]))
+            promises.push(getDocs(q))
+        }
 
-    //   promises.push(q.get());
-    // }
+        setItems([])
+        // Collect all the query results together into a single list
+        Promise.all(promises).then((snapshots) => {
+                const matchingDocs = [];
 
-    // // Collect all the query results together into a single list
-    // Promise.all(promises).then((snapshots) => {
-    //   const matchingDocs = [];
+                for (const snap of snapshots) {
+                    for (const itm of snap.docs) {
+                        const actualData = itm.data()
+                        const lat = actualData.coordinates.lat
+                        const lng = actualData.coordinates.lng
 
-    //   for (const snap of snapshots) {
-    //     for (const doc of snap.docs) {
-    //       const lat = doc.get('lat');
-    //       const lng = doc.get('lng');
+                        // We have to filter out a few false positives due to GeoHash
+                        // accuracy, but most will match
+                        const distanceInKm = geofire.distanceBetween([lat, lng], coordinates);
+                        console.log(distanceInKm, "Km")
+                        setItems(previous => [...previous, {id: itm.id, ...actualData, distanceInKm}])
+                        // const distanceInM = distanceInKm * 1000;
+                        // if (distanceInM <= radiusInM) {
+                        //     matchingDocs.push(itm);
+                        // }
+                    
+                    }
+                }
 
-    //       // We have to filter out a few false positives due to GeoHash
-    //       // accuracy, but most will match
-    //       const distanceInKm = geofire.distanceBetween([lat, lng], center);
-    //       const distanceInM = distanceInKm * 1000;
-    //       if (distanceInM <= radiusInM) {
-    //         matchingDocs.push(doc);
-    //       }
-    //     }
-    //   }
+            }
+        )
 
-    //   return matchingDocs;
-    // }).then((matchingDocs) => {
-    //   // Process the matching documents
-    //   // ...
-    // });
-
-    /////
+        /////
+    }
 
   
-    const fetchItems = async () => {
-        // console.log(db)
-        // const response = db.collection('items');
-        // const data = await response.get();
-        // data.docs.forEach(item => {
-        //   setItems([...items, item.data()])
-        // })
-        setItems([])
-        await getDocs(collection(db, "items"))
-        .then(data => {
-        data.docs.forEach((item) => {
-            setItems(previous => [...previous, {id: item.id, ...item.data()}])
-        })
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-    }
+    // const fetchItems = async () => {
+    //     // console.log(db)
+    //     // const response = db.collection('items');
+    //     // const data = await response.get();
+    //     // data.docs.forEach(item => {
+    //     //   setItems([...items, item.data()])
+    //     // })
+    //     setItems([])
+    //     await getDocs(collection(db, "items"))
+    //     .then(data => {
+    //     data.docs.forEach((item) => {
+    //         setItems(previous => [...previous, {id: item.id, ...item.data()}])
+    //     })
+    //     })
+    //     .catch(err=>{
+    //         console.log(err)
+    //     })
+    // }
 
     const fetchUser = async () => {
         await getDoc(doc(db, "users", user.uid))
         .then(data => {
             const actualData = data.data()
             if(actualData){
-                setName(actualData.name)
+                const postcode = actualData.postcode
+                const geoHash = actualData.geoHash
+                const coordinates = [actualData.coordinates.lat, actualData.coordinates.lng]
+                fetchItemsByDistance(coordinates)
             } 
+
         })
         .catch(err=>{
             console.log(err)
@@ -100,7 +104,6 @@ const CloseToYouSection = (props) => {
 
 
     useEffect(() => {
-        fetchItems()
         user&&fetchUser()
         
     }, []);
