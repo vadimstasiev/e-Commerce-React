@@ -8,12 +8,13 @@ import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import NoiseBackground from '../Components/NoiseBackground';
 import FavouriteSidePanel from '../Components/FavouriteSidePanel';
 import { useAuthState } from "react-firebase-hooks/auth";
+import * as geofire from 'geofire-common';
 import ItemCard from '../Components/ItemCard';
 
 const CloseToYouSection = (props) => {
+    const [user, loadingUser, error] = useAuthState(auth);
     const navigate = useNavigate()
     const [items, setItems] = useState([]);
-    const [user, loadingUser, error] = useAuthState(auth);
     const [name, setName] = useState("");
     const [userGeohash, setUserGeohash] = useState("");
 
@@ -84,23 +85,23 @@ const CloseToYouSection = (props) => {
         })
     }
 
-    // const fetchUser = async () => {
-    //     await getDoc(doc(db, "users", user.uid))
-    //     .then(data => {
-    //         const actualData = data.data()
-    //         if(actualData){
-    //             setName(actualData.name)
-    //         } 
-    //     })
-    //     .catch(err=>{
-    //         console.log(err)
-    //     })
-    // }
+    const fetchUser = async () => {
+        await getDoc(doc(db, "users", user.uid))
+        .then(data => {
+            const actualData = data.data()
+            if(actualData){
+                setName(actualData.name)
+            } 
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
 
 
     useEffect(() => {
         fetchItems()
-        // fetchUser()
+        user&&fetchUser()
         
     }, []);
 
@@ -111,9 +112,9 @@ const CloseToYouSection = (props) => {
     useEffect(() => {
         if(items.length===0){
             props.setEmpty&&props.setEmpty(true)
-            return <></>
+        } else {
+            props.setEmpty&&props.setEmpty(false)
         }
-        props.setEmpty&&props.setEmpty(false)
     }, [items]);
 
     if(items.length===0){
