@@ -48,8 +48,7 @@ const CloseToYouSection = (props) => {
 
                         // We have to filter out a few false positives due to GeoHash
                         // accuracy, but most will match
-                        const distanceInKm = geofire.distanceBetween([lat, lng], coordinates);
-                        console.log(distanceInKm, "Km")
+                        const distanceInKm = Math.round(geofire.distanceBetween([lat, lng], coordinates));
                         setItems(previous => [...previous, {id: itm.id, ...actualData, distanceInKm}])
                         // const distanceInM = distanceInKm * 1000;
                         // if (distanceInM <= radiusInM) {
@@ -65,25 +64,6 @@ const CloseToYouSection = (props) => {
         /////
     }
 
-  
-    // const fetchItems = async () => {
-    //     // console.log(db)
-    //     // const response = db.collection('items');
-    //     // const data = await response.get();
-    //     // data.docs.forEach(item => {
-    //     //   setItems([...items, item.data()])
-    //     // })
-    //     setItems([])
-    //     await getDocs(collection(db, "items"))
-    //     .then(data => {
-    //     data.docs.forEach((item) => {
-    //         setItems(previous => [...previous, {id: item.id, ...item.data()}])
-    //     })
-    //     })
-    //     .catch(err=>{
-    //         console.log(err)
-    //     })
-    // }
 
     const fetchUser = async () => {
         await getDoc(doc(db, "users", user.uid))

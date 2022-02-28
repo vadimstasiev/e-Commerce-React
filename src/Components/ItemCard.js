@@ -104,9 +104,15 @@ const ItemCard = ({product}) => {
                 }
             </div>
             
-            <div className="text-gray-700 dark:text-zinc-100 pb-10 px-5 py-3 ">
+            <div className="text-gray-700 dark:text-zinc-100 pb-[50px] px-5 py-3 ">
                 {product.name}
             </div>
+            {
+                product.distanceInKm&&
+                <p className="text-zinc-800 dark:text-zinc-100 dark:hover:text-white font-black text-xl absolute left-4 bottom-2">
+                    {product.distanceInKm} Km away
+                </p>
+            }
             <p className="text-zinc-800 dark:text-zinc-100 dark:hover:text-white font-black text-xl absolute right-2 bottom-2">
                 £ {product.price}
             </p>
