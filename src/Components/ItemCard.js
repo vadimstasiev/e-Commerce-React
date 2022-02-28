@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { EditOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { db, auth } from '../../firebase';
+import { db, auth } from '../firebase';
 
 const ItemCard = ({product}) => {
     const navigate = useNavigate()
@@ -31,6 +31,7 @@ const ItemCard = ({product}) => {
     }
 
     const preloadImage = (src) => {
+        // todo, keep a list of images already preloaded so it doesnt do it again
         return new Promise((resolve, reject) => {
           const img = new Image()
           img.onload = function() {

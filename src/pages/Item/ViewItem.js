@@ -8,7 +8,7 @@ import Footer from '../../Components/MainLayout/Footer'
 import NoiseBackground from '../../Components/NoiseBackground'
 import Background from '../../Components/Background'
 import FavouriteSidePanel from '../../Components/FavouriteSidePanel'
-import ItemCard from './ItemCard'
+import ItemCard from '../../Components/ItemCard'
 import Loading from "../Auth/Loading";
 import OnScreenRender from "../../Components/OnScreenRender";
 import { useAuthState } from "react-firebase-hooks/auth";

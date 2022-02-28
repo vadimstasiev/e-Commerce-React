@@ -12,11 +12,13 @@ import ItemCreate from './pages/Item/ItemCreate';
 import ViewItem from './pages/Item/ViewItem';
 import ViewPersonalListings from './pages/Item/ViewPersonalListings';
 import FAQ from './pages/FAQ';
+import Browse from './pages/Browse';
 
 const AppRouter = () => {
   return <Router>
     <Routes>
       <Route exact path='/' element={<Home/>}/>
+      <Route exact path='/Browse' element={<Browse/>}/>
       <Route exact path="/SignIn" element={<SignIn/>}/>
       <Route exact path="/SignUp" element={<SignUp/>}/>
       <Route exact path="/SignOut" element={<SignOut/>}/>

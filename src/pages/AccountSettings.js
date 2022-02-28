@@ -100,7 +100,7 @@ const AccountSettings = (props) => {
 
     // Edit existing item 
 
-    const fetchItem = async () => {
+    const fetchUser = async () => {
         await getDoc(doc(db, "users", user.uid))
         .then(data => {
             const actualData = data.data()
@@ -118,7 +118,7 @@ const AccountSettings = (props) => {
     }
 
     useEffect(() => {
-        fetchItem()
+        fetchUser()
     }, []);
 
     // useEffect(() => {
