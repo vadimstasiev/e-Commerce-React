@@ -35,31 +35,48 @@ const CloseToYouSection = (props) => {
             promises.push(getDocs(q))
         }
 
-        setItems([])
         // Collect all the query results together into a single list
-        Promise.all(promises).then((snapshots) => {
+        Promise.all(promises)
+            .then((snapshots) => {
                 const matchingDocs = [];
 
                 for (const snap of snapshots) {
                     for (const itm of snap.docs) {
-                        const actualData = itm.data()
-                        const lat = actualData.coordinates.lat
-                        const lng = actualData.coordinates.lng
-
-                        // We have to filter out a few false positives due to GeoHash
-                        // accuracy, but most will match
-                        const distanceInKm = Math.round(geofire.distanceBetween([lat, lng], coordinates));
-                        setItems(previous => [...previous, {id: itm.id, ...actualData, distanceInKm}])
-                        // const distanceInM = distanceInKm * 1000;
-                        // if (distanceInM <= radiusInM) {
-                        //     matchingDocs.push(itm);
-                        // }
-                    
+                        matchingDocs.push(itm);
                     }
                 }
-
+                return matchingDocs
             }
         )
+        .then(matchingDocs => {
+            const itemsTemp = []
+
+            for(const itm of matchingDocs) {
+                const actualData = itm.data()
+                const lat = actualData.coordinates.lat
+                const lng = actualData.coordinates.lng
+
+                // We have to filter out a few false positives due to GeoHash
+                // accuracy, but most will match
+                const distanceInKm = Math.round(geofire.distanceBetween([lat, lng], coordinates))
+                itemsTemp.push({id: itm.id, ...actualData, distanceInKm})
+            }
+
+              
+            itemsTemp.sort(( a, b ) => {
+                if ( a.distanceInKm < b.distanceInKm ){
+                  return -1;
+                }
+                if ( a.distanceInKm > b.distanceInKm ){
+                  return 1;
+                }
+                return 0;
+            } );
+
+
+            setItems(itemsTemp)
+
+        })
 
         /////
     }
