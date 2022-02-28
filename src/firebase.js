@@ -54,7 +54,7 @@ const signInWithGoogle = async () => {
     console.error(err);
     let errorMessageFormated = err.code.replace('auth/','').replace(/-/g, " ")
     errorMessageFormated = errorMessageFormated.charAt(0).toUpperCase() + errorMessageFormated.slice(1) + "."
-    alert(errorMessageFormated);
+    // alert(errorMessageFormated);
   }
 };
 
