@@ -1,8 +1,8 @@
-# e-Commerce
+# e-Commerce App
 
-An e-commerce app that uses Firebase
+A demo e-commerce app concept that uses Firebase, the messaging functionality is not complete.
 
-## Installation instructions
+# Installation instructions
 
 First you need to install Node then Yarn.
 
@@ -10,44 +10,29 @@ Install all project dependencies: `yarn`
 
 Run the project in dev mode: `yarn start`
 
-Maps JavaScript & Places API: `AIzaSyBhVqr8ia5pigErNKzrYTBePxCi5JOYO0A`
+# Preview
+
+![Alt Text](./IMG/output720p.gif)
+
+# Important Note
+
+For the functionality that check the postcode and the "distance to item" to work create an .env file that contains the following:
+
+```
+REACT_APP_GOOGLE_MAPS_API_KEY="Your API key goes here"
+```
+
+You must have the following APIs enabled:
+
+- Geocoding API
+- Maps JavaScript API
 
 # Useful links
 
-https://console.firebase.google.com/u/0/project/mobile-app-b6ebc/
+### Create your API key
 
-https://console.cloud.google.com/google/maps-apis/api-list?project=decoded-core-285913
+https://console.cloud.google.com/google/maps-apis/api-list
 
-# Useful Resources
-
-Messenger:
-
-https://tailwindcomponents.com/component/fb-messenger-clone
-
-Calculating Distance:
-
-https://cloud.google.com/blog/products/maps-platform/how-calculate-distances-map-maps-javascript-api
-
-# Random postcode generator
+### Random postcode generator
 
 https://www.generatormix.com/random-uk-address-generator
-
-# Calculating distance with geohash
-
-https://firebase.google.com/docs/firestore/solutions/geoqueries
-
-# favourites and messages firestore
-
-```
-users
-    user-id
-        favourites
-            items-ids-list
-
-
-items
-    item-id
-        messages
-            customer-id
-
-```
