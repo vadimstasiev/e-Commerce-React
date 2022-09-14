@@ -12,6 +12,10 @@ Run the project in dev mode: `yarn start`
 
 # Preview
 
+## Live: https://mobile-app-b6ebc.web.app/
+
+
+
 ![Alt Text](./IMG/output720p.gif)
 
 # Important Note
